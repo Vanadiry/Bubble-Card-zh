@@ -24,7 +24,7 @@ import styles from './styles.css';
 import moduleStyles from '../modules/styles.css';
 import { getLazyLoadedPanelContent } from './utils.js';
 
-class BubbleCardEditor extends LitElement {
+class BubbleCardEditorZh extends LitElement {
     _previewStyleApplied = false;
     _entityCache = {};
     _cachedAttributeList = null;
@@ -1317,7 +1317,7 @@ class BubbleCardEditor extends LitElement {
     }
 
     this.cardTypeList = [{
-            'label': 'Button (Switch, slider, ...)',
+            'label': '按钮 (开关, 滑块, ...)',
             'value': 'button'
         },
         {
@@ -1329,11 +1329,11 @@ class BubbleCardEditor extends LitElement {
             'value': 'cover'
         },
         {
-            'label': 'Climate',
+            'label': '空调',
             'value': 'climate'
         },
         {
-            'label': 'Empty column',
+            'label': '空白填充列',
             'value': 'empty-column'
         },
         {
@@ -1341,7 +1341,7 @@ class BubbleCardEditor extends LitElement {
             'value': 'horizontal-buttons-stack'
         },
         {
-            'label': 'Media player',
+            'label': '媒体播放器',
             'value': 'media-player'
         },
         {
@@ -1349,7 +1349,7 @@ class BubbleCardEditor extends LitElement {
             'value': 'pop-up'
         },
         {
-            'label': 'Select',
+            'label': '选单',
             'value': 'select'
         },
         {
@@ -1360,4 +1360,4 @@ class BubbleCardEditor extends LitElement {
   }
 }
 
-customElements.define('bubble-card-editor', BubbleCardEditor);
+customElements.define('bubble-card-editor-zh', BubbleCardEditorZh);

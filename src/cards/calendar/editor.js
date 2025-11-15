@@ -1,6 +1,6 @@
 import { html } from "lit";
 import setupTranslation from '../../tools/localize.js';
-import "../../components/editor/ha-selector-calendar_entity.js";
+import "../../components/editor/ha-selector-calendar_entity-zh.js";
 
 export function renderCalendarEditor(editor){
     const t = setupTranslation(editor.hass);

@@ -7,7 +7,7 @@ const computeLabel = (schema) => {
   return schema.title || schema.label;
 }
 
-export class HaCalendarEntitySelector extends LitElement {
+export class HaCalendarEntitySelectorZh extends LitElement {
   getSchema(entity) {
     const t = setupTranslation(this.hass);
 
@@ -114,4 +114,4 @@ export class HaCalendarEntitySelector extends LitElement {
   }
 }
 
-customElements.define("ha-selector-calendar_entity", HaCalendarEntitySelector);
+customElements.define("ha-selector-calendar_entity-zh", HaCalendarEntitySelectorZh);

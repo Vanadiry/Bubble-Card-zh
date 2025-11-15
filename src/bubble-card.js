@@ -4,7 +4,7 @@ import { cleanupTapActions } from './tools/tap-actions';
 import { preloadYAMLStyles } from './tools/style-processor.js';
 import { createBubbleDefaultColor } from './tools/style.js';
 import { cleanupScrollingEffects } from './tools/utils.js';
-import BubbleCardEditor from './editor/bubble-card-editor.js';
+import BubbleCardEditorZh from './editor/bubble-card-editor-zh.js';
 
 import { handlePopUp } from './cards/pop-up/index.js';
 import { handleButton } from './cards/button/index.js';
@@ -30,7 +30,7 @@ const handlers = {
   'climate': handleClimate,
 };
 
-class BubbleCard extends HTMLElement {
+class BubbleCardZh extends HTMLElement {
   editor = false;
   isConnected = false;
   _editorUpdateTimeout = null;
@@ -180,23 +180,23 @@ class BubbleCard extends HTMLElement {
   }
 
   static getConfigElement() {
-    return document.createElement("bubble-card-editor");
+    return document.createElement("bubble-card-editor-zh");
   }
 }
 
-customElements.define("bubble-card", BubbleCard);
+customElements.define("bubble-card-zh", BubbleCardZh);
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: "bubble-card",
-  name: "Bubble Card",
+  type: "bubble-card-zh",
+  name: "Bubble Card 中文",
   preview: false,
-  description: "A minimalist card collection with a nice pop-up touch.",
-  documentationURL: "https://github.com/Clooos/Bubble-Card/"
+  description: "轻量、简洁的卡片组件，并提供流畅的弹出式交互。",
+  documentationURL: "https://github.com/Vanadiry/Bubble-Card-zh/"
 });
 
 console.info(
-  `%c Bubble Card %c ${version} `,
+  `%c Bubble Card 中文 %c ${version} `,
   'background-color: #555;color: #fff;padding: 3px 2px 3px 3px;border-radius: 14px 0 0 14px;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
   'background-color: #506eac;color: #fff;padding: 3px 3px 3px 2px;border-radius: 0 14px 14px 0;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)'
 );

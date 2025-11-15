@@ -31,7 +31,7 @@ module.exports = [
     performance,
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: '[name].js'
+      filename: '[name]-zh.js'
     }
   },
 
@@ -49,7 +49,7 @@ module.exports = [
     performance,
     output: {
       path: path.resolve(__dirname, 'www'),
-      filename: '[name].js'
+      filename: '[name]-zh.js'
     }
   }
 ];
