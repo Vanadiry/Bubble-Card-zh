@@ -16,13 +16,13 @@ export function renderSelectEditor(editor){
 
     return html`
         <div class="card-config">
-            ${editor.makeDropdown("Card type", "card_type", editor.cardTypeList)}
+            ${editor.makeDropdown("卡片类型", "card_type", editor.cardTypeList)}
             <ha-form
                 .hass=${editor.inputSelectList}
                 .data=${editor._config}
                 .schema=${[
                             { name: "entity",
-                            label: "Entity", 
+                            label: "实体", 
                             selector: { entity: {}},
                             },
                         ]}   
@@ -32,7 +32,7 @@ export function renderSelectEditor(editor){
             ${hasSelectAttributeList ? html`
                 <div class="ha-combo-box">
                     <ha-combo-box
-                        label="Select menu (from attributes)"
+                        label="选单（来自属性）"
                         .value="${editor._config.select_attribute}"
                         .items="${selectableAttributeList}"
                         .configValue="${"select_attribute"}"
@@ -43,48 +43,48 @@ export function renderSelectEditor(editor){
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:cog"></ha-icon>
-                  Card settings
+                  卡片设置
                 </h4>
                 <div class="content">                   
                     <ha-textfield
-                        label="Optional - Name"
+                        label="名称（可选）"
                         .value="${editor._config?.name || ''}"
                         .configValue="${"name"}"
                         @input="${editor._valueChanged}"
                     ></ha-textfield>
-                    ${editor.makeDropdown("Optional - Icon", "icon")}
+                    ${editor.makeDropdown("图标（可选）", "icon")}
                     ${editor.makeShowState()}
                 </div>
             </ha-expansion-panel>
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap"></ha-icon>
-                  Tap action on icon
+                  图标点击行为
                 </h4>
                 <div class="content">
-                    ${editor.makeActionPanel("Tap action")}
-                    ${editor.makeActionPanel("Double tap action")}
-                    ${editor.makeActionPanel("Hold action")}
+                    ${editor.makeActionPanel("单击行为")}
+                    ${editor.makeActionPanel("双击行为")}
+                    ${editor.makeActionPanel("长按行为")}
                 </div>
             </ha-expansion-panel>
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap-button"></ha-icon>
-                  Tap action on button
+                  按钮点击行为
                 </h4>
                 <div class="content">
                     <div style="${isSelect ? 'opacity: 0.5; pointer-events: none;' : ''}">
-                        ${editor.makeActionPanel("Tap action", button_action, 'none', 'button_action')}
+                        ${editor.makeActionPanel("单击行为", button_action, 'none', 'button_action')}
                     </div>
-                    ${editor.makeActionPanel("Double tap action", button_action, 'none', 'button_action')}
-                    ${editor.makeActionPanel("Hold action", button_action, 'none', 'button_action')}
+                    ${editor.makeActionPanel("双击行为", button_action, 'none', 'button_action')}
+                    ${editor.makeActionPanel("长按行为", button_action, 'none', 'button_action')}
                 </div>
             </ha-expansion-panel>
             ${editor.makeSubButtonPanel()}
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling options
+                  样式
                 </h4>
                 <div class="content">
                     ${editor.makeLayoutOptions()}
@@ -95,20 +95,20 @@ export function renderSelectEditor(editor){
             <div class="bubble-info">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                    Select card
+                    选单卡片
                 </h4>
                 <div class="content">
-                    <p>This card allows you to have a select menu for your entities with selectable options:</p>
+                    <p>这个卡片可以为你的实体提供一个带可选项目的选单：</p>
                     <ul class="icon-list">
-                        <li><ha-icon icon="mdi:format-list-bulleted"></ha-icon>Input Select entities</li>
-                        <li><ha-icon icon="mdi:form-dropdown"></ha-icon>Select entities</li>
-                        <li><ha-icon icon="mdi:playlist-music"></ha-icon>Media players with&nbsp;<b>source list</b></li>
-                        <li><ha-icon icon="mdi:speaker"></ha-icon>Media players with&nbsp;<b>sound mode list</b></li>
-                        <li><ha-icon icon="mdi:thermostat"></ha-icon>Climate entities with&nbsp;<b>hvac modes</b></li>
-                        <li><ha-icon icon="mdi:fan"></ha-icon>Climate/Fan entities with&nbsp;<b>fan modes</b></li>
-                        <li><ha-icon icon="mdi:air-conditioner"></ha-icon>Climate entities with&nbsp;<b>swing modes</b></li>
-                        <li><ha-icon icon="mdi:thermostat-auto"></ha-icon>Climate entities with&nbsp;<b>preset modes</b></li>
-                        <li><ha-icon icon="mdi:lightbulb-group"></ha-icon>Light entities with&nbsp;<b>effect list</b></li>
+                        <li><ha-icon icon="mdi:format-list-bulleted"></ha-icon>“输入选单”实体</li>
+                        <li><ha-icon icon="mdi:form-dropdown"></ha-icon>“选单”实体</li>
+                        <li><ha-icon icon="mdi:playlist-music"></ha-icon>带有“来源列表”的媒体播放器</li>
+                        <li><ha-icon icon="mdi:speaker"></ha-icon>带有“音效模式列表”的媒体播放器</li>
+                        <li><ha-icon icon="mdi:thermostat"></ha-icon>带有“空调模式”的空调实体</li>
+                        <li><ha-icon icon="mdi:fan"></ha-icon>带有“风扇模式”的空调</li>
+                        <li><ha-icon icon="mdi:air-conditioner"></ha-icon>带有“摆风模式”的空调实体</li>
+                        <li><ha-icon icon="mdi:thermostat-auto"></ha-icon>带有“预设模式”的空调实体</li>
+                        <li><ha-icon icon="mdi:lightbulb-group"></ha-icon>带有“效果列表”的灯光实体</li>
                     </ul>
                 </div>
             </div>

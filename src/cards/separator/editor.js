@@ -5,19 +5,19 @@ export function renderSeparatorEditor(editor){
 
     return html`
     <div class="card-config">
-        ${editor.makeDropdown("Card type", "card_type", editor.cardTypeList)}
+        ${editor.makeDropdown("卡片类型", "card_type", editor.cardTypeList)}
         <ha-textfield
-            label="Name"
+            label="名称"
             .value="${editor._config?.name || ''}"
             .configValue="${"name"}"
             @input="${editor._valueChanged}"
         ></ha-textfield>
-        ${editor.makeDropdown("Icon", "icon")}
+        ${editor.makeDropdown("图标", "icon")}
         ${editor.makeSubButtonPanel()}
         <ha-expansion-panel outlined>
             <h4 slot="header">
               <ha-icon icon="mdi:palette"></ha-icon>
-              Styling options
+              样式
             </h4>
             <div class="content">
                 ${editor.makeLayoutOptions()}
@@ -28,10 +28,10 @@ export function renderSeparatorEditor(editor){
         <div class="bubble-info">
             <h4 class="bubble-section-title">
                 <ha-icon icon="mdi:information-outline"></ha-icon>
-                Separator card
+                分隔线卡片
             </h4>
             <div class="content">
-                <p>This card is a simple separator for dividing your pop-up/dashboard into categories or sections. e.g. Lights, Devices, Covers, Settings, Automations...</p>
+                <p>此卡片是一个简单的分隔线，用于将你的弹窗或仪表板划分为不同类别或区域，例如：灯光、设备、遮阳、设置、自动化等。</p>
             </div>
         </div>
         ${editor.makeVersion()}

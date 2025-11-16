@@ -12,14 +12,14 @@ export function getCachedModuleData() {
     // If the API is in cooldown period after a failure and the cache is expired but still present, 
     // temporarily extend the validity of the cache
     if (apiFailure && cachedData && cachedData.expiration < Date.now()) {
-      console.log("🛡️ API in cooldown period after failure and cache expired, temporary extension of validity");
+      console.log("🛡️ API在失败后进入冷却期且缓存已过期，临时延长有效期");
       // Extend the validity of the cache by 2 hours
       const extendedExpiration = Date.now() + 7200000; // 2 hours
       cachedData.expiration = extendedExpiration;
       
       // Save the extension
       localStorage.setItem('bubble-card-module-store', JSON.stringify(cachedData));
-      console.log("⏳ Cache extended until", new Date(extendedExpiration));
+      console.log("⏳ 缓存延长至", new Date(extendedExpiration));
       
       return cachedData;
     }
@@ -31,13 +31,13 @@ export function getCachedModuleData() {
 
     // Data expired, but keep it available in case API checks show no remaining quota
     if (cachedData) {
-      console.log("⚠️ Cache expired but kept for potential API limit situations");
+      console.log("⚠️ 缓存已过期，但会保留以应对可能的API限制情况");
       return cachedData;
     }
 
     return null;
   } catch (e) {
-    console.error("Error reading cache:", e);
+    console.error("读取缓存时出错：", e);
     return null;
   }
 }
@@ -55,9 +55,9 @@ export function saveCachedModuleData(modules) {
       // Store when the cache was last refreshed to support SWR checks
       lastFetchedAt: Date.now()
     }));
-    console.log("Module data cached until", new Date(expiration));
+    console.log("模块数据缓存至", new Date(expiration));
   } catch (e) {
-    console.error("Error saving to cache:", e);
+    console.error("保存缓存时出错：", e);
   }
 }
 

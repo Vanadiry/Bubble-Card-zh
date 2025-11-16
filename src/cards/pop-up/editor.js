@@ -5,10 +5,10 @@ import { renderButtonEditor } from '../button/editor.js';
 
 function getButtonList() {
     return [
-        { 'label': 'Switch', 'value': 'switch' },
-        { 'label': 'Slider', 'value': 'slider' },
-        { 'label': 'State', 'value': 'state' },
-        { 'label': 'Name / Text', 'value': 'name' }
+        { 'label': '开关', 'value': 'switch' },
+        { 'label': '滑块', 'value': 'slider' },
+        { 'label': '状态', 'value': 'state' },
+        { 'label': '名称或文本', 'value': 'name' }
     ];
 }
 
@@ -55,7 +55,7 @@ function updateUIForVerticalStack(editor, isInVerticalStack) {
     
     const buttonText = editor.shadowRoot.querySelector('#button-text');
     if (buttonText) {
-        buttonText.textContent = isInVerticalStack ? 'Update Hash' : 'Create Pop-up';
+        buttonText.textContent = isInVerticalStack ? '更新锚点标识' : '创建弹出面板';
     }
     
     // Update the toggle and its label
@@ -66,8 +66,8 @@ function updateUIForVerticalStack(editor, isInVerticalStack) {
     
     const exampleLabel = editor.shadowRoot.querySelector('.mdc-form-field .mdc-label');
     if (exampleLabel) {
-        exampleLabel.textContent = 'Include example configuration' + 
-            (isInVerticalStack ? ' (disabled because pop-up is already in a vertical stack)' : '');
+        exampleLabel.textContent = '包含示例配置' + 
+            (isInVerticalStack ? '（已禁用，因为弹出面板已经位于一个垂直堆叠中）' : '');
     }
 }
 
@@ -86,7 +86,7 @@ function createPopUpConfig(editor, originalConfig) {
         if (isInVerticalStack) {
             editor._config.hash = hashValue;
             fireEvent(editor, "config-changed", { config: editor._config });
-            console.info("Pop-up already in a vertical stack. Hash updated. Note that manually creating a vertical stack is no longer required.");
+            console.info("弹出面板已位于一个垂直堆叠中，锚点标识已更新。请注意：现在已经不需要手动创建垂直堆叠了。");
             return;
         }
         
@@ -99,14 +99,14 @@ function createPopUpConfig(editor, originalConfig) {
                     {
                         type: 'custom:bubble-card',
                         card_type: 'pop-up',
-                        name: 'Living room',
+                        name: '客厅',
                         icon: 'mdi:sofa-outline',
                         hash: hashValue
                     },
                     {   
                         type: 'custom:bubble-card',
                         card_type: 'separator',
-                        name: 'Lights (example)',
+                        name: '灯光（示例）',
                         icon: 'mdi:lightbulb-outline',
                     },
                     {   
@@ -122,7 +122,7 @@ function createPopUpConfig(editor, originalConfig) {
                                 type: 'custom:bubble-card',
                                 card_type: 'button',
                                 button_type: 'name',
-                                name: 'Floor lamp',
+                                name: '落地灯',
                                 icon: 'mdi:floor-lamp-outline',
                             }
                         ]
@@ -145,7 +145,7 @@ function createPopUpConfig(editor, originalConfig) {
         
         fireEvent(editor, "config-changed", { config: editor._config });
     } catch (error) {
-        console.error("Error creating pop-up:", error);
+        console.error("创建弹出面板时出错：", error);
         // Restore original config if there's an error
         editor._config = originalConfig;
         editor._config.hash = editor.shadowRoot.querySelector('#hash-input')?.value || '#pop-up-name';
@@ -175,37 +175,37 @@ export function renderPopUpEditor(editor) {
 
         return html`
             <div class="card-config">
-                ${editor.makeDropdown("Card type", "card_type", editor.cardTypeList)}
+                ${editor.makeDropdown("卡片类型", "card_type", editor.cardTypeList)}
                 <div id="vertical-stack-alert-container" style="display: none;">
                     <div class="bubble-info warning">
                         <h4 class="bubble-section-title">
                             <ha-icon icon="mdi:alert-outline"></ha-icon>
-                            Old configuration detected
+                            检测到旧版配置
                         </h4>
                         <div class="content">
-                            <p>This pop-up is already inside a vertical stack (old method). This is no longer required, but it will work fine. You can simply update the hash below.</p>
+                            <p>这个弹出面板放在一个纵向堆叠中，这是之前的用法。现在不需要这样做，但依然可以正常使用。你只需要更新下面的锚点标识即可。</p>
                         </div>
                     </div>
                 </div>
                 <ha-textfield
-                    label="Hash (e.g. #kitchen)"
+                    label="锚点标识（例如#kitchen）"
                     .value="${editor._config?.hash || '#pop-up-name'}"
                     id="hash-input"
                 ></ha-textfield>
-                <ha-formfield .label="Include example configuration">
+                <ha-formfield .label="包含示例配置">
                     <ha-switch
-                        aria-label="Include example configuration"
+                        aria-label="包含示例配置"
                         .checked=${false}
                         id="include-example"
                     ></ha-switch>
                     <div class="mdc-form-field">
-                        <label class="mdc-label">Include example configuration</label>
+                        <label class="mdc-label">包含示例配置</label>
                     </div>
                 </ha-formfield>
                 
                 <button class="icon-button" @click="${() => editor.createPopUpConfig()}">
                     <ha-icon icon="mdi:plus"></ha-icon>
-                    <span id="button-text">Create pop-up</span>
+                    <span id="button-text">创建弹出面板</span>
                 </button>
 
                 <hr />
@@ -213,11 +213,11 @@ export function renderPopUpEditor(editor) {
                 <div class="bubble-info">
                     <h4 class="bubble-section-title">
                         <ha-icon icon="mdi:information-outline"></ha-icon>
-                        Pop-up
+                        弹出面板
                     </h4>
                     <div class="content">
-                        <p>Pop-ups are a great way to declutter your dashboard and quickly display more information when you need it.</p>
-                        <p>If it's your first time creating a pop-up, you can use the example configuration to get started.</p>
+                        <p>弹出面板是整理仪表板、并在需要时快速显示更多信息的绝佳方式。</p>
+                        <p>如果这是你第一次创建弹出面板，可以使用示例配置来快速上手。</p>
                     </div>
                 </div>
                 
@@ -229,9 +229,9 @@ export function renderPopUpEditor(editor) {
     // Full configuration interface for an existing pop-up
     return html`
         <div class="card-config">
-            ${editor.makeDropdown("Card type", "card_type", editor.cardTypeList)}
+            ${editor.makeDropdown("卡片类型", "card_type", editor.cardTypeList)}
             <ha-textfield
-                label="Hash (e.g. #kitchen)"
+                label="锚点标识（例如#kitchen）"
                 .value="${editor._config?.hash || '#pop-up-name'}"
                 .configValue="${"hash"}"
                 @input="${editor._valueChanged}"
@@ -239,27 +239,27 @@ export function renderPopUpEditor(editor) {
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:dock-top"></ha-icon>
-                  Header settings
+                  标头设置
                 </h4>
                 <div class="content">
-                    <ha-formfield .label="Show header">
+                    <ha-formfield .label="显示标头">
                         <ha-switch
-                            aria-label="Show header"
+                            aria-label="显示标头"
                             .checked=${editor._config.show_header ?? true}
                             .configValue="${"show_header"}"
                             @change=${editor._valueChanged}
                         ></ha-switch>
                         <div class="mdc-form-field">
-                            <label class="mdc-label">Show header</label> 
+                            <label class="mdc-label">显示标头</label> 
                         </div>
                     </ha-formfield>
                     <div class="bubble-info">
                         <h4 class="bubble-section-title">
                             <ha-icon icon="mdi:information-outline"></ha-icon>
-                            Hidden header
+                            隐藏标头
                         </h4>
                         <div class="content">
-                            <p>You can completely hide the pop-up header, including the close button. To close it when hidden, either make a long swipe within the pop-up or click outside of it.</p>
+                            <p>你可以完全隐藏弹出窗口的标题栏，包括关闭按钮。隐藏后若要关闭弹窗，可以在弹窗内部执行长滑动手势，或点击弹窗外区域。</p>
                         </div>
                     </div>
                     <div style="${!(editor._config?.show_header ?? true) ? 'display: none;' : ''}">
@@ -271,11 +271,11 @@ export function renderPopUpEditor(editor) {
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:cog"></ha-icon>
-                  Pop-up settings
+                  弹出面板设置
                 </h4>
                 <div class="content">
                     <ha-textfield
-                        label="Auto close in milliseconds (e.g. 15000)"
+                        label="自动关闭时间（毫秒，例如15000）"
                         type="number"
                         inputMode="numeric"
                         min="0"
@@ -285,7 +285,7 @@ export function renderPopUpEditor(editor) {
                         @input="${editor._valueChanged}"
                     ></ha-textfield>
                     <ha-textfield
-                        label="Slide to close distance (default to 400)"
+                        label="滑动关闭距离（默认400）"
                         type="number"
                         inputMode="numeric"
                         min="0"
@@ -294,46 +294,46 @@ export function renderPopUpEditor(editor) {
                         .configValue="${"slide_to_close_distance"}"
                         @input="${editor._valueChanged}"
                     ></ha-textfield>
-                    <ha-formfield .label="Close the pop-up by clicking outside of it (a refresh is needed)">
+                    <ha-formfield .label="点击面板外时关闭弹出面板（刷新后生效）">
                         <ha-switch
-                            aria-label="Close the pop-up by clicking outside of it (a refresh is needed)"
+                            aria-label="点击面板外时关闭弹出面板（刷新后生效）"
                             .checked=${editor._config?.close_by_clicking_outside ?? true}
                             .configValue="${"close_by_clicking_outside"}"
                             @change=${editor._valueChanged}
                         ></ha-switch>
                         <div class="mdc-form-field">
-                            <label class="mdc-label">Close the pop-up by clicking outside of it (a refresh is needed)</label> 
+                            <label class="mdc-label">点击面板外时关闭弹出面板（刷新后生效）</label> 
                         </div>
                     </ha-formfield>
-                    <ha-formfield .label="Close the pop-up after any click or tap">
+                    <ha-formfield .label="任意点击后关闭弹出面板">
                         <ha-switch
-                            aria-label="Close the pop-up after any click or tap"
+                            aria-label="任意点击后关闭弹出面板"
                             .checked=${editor._config?.close_on_click || false}
                             .configValue="${"close_on_click"}"
                             @change=${editor._valueChanged}
                         ></ha-switch>
                         <div class="mdc-form-field">
-                            <label class="mdc-label">Close the pop-up after any click or tap</label> 
+                            <label class="mdc-label">任意点击后关闭弹出面板</label> 
                         </div>
                     </ha-formfield>
-                    <ha-formfield .label="Update cards in background (not recommended)">
+                    <ha-formfield .label="在后台更新卡片（不推荐）">
                         <ha-switch
-                            aria-label="Update cards in background (not recommended)"
+                            aria-label="在后台更新卡片（不推荐）"
                             .checked=${editor._config?.background_update || false}
                             .configValue="${"background_update"}"
                             @change=${editor._valueChanged}
                         ></ha-switch>
                         <div class="mdc-form-field">
-                            <label class="mdc-label">Update cards in background (not recommended)</label> 
+                            <label class="mdc-label">在后台更新卡片（不推荐）</label> 
                         </div>
                     </ha-formfield>
                     <div class="bubble-info">
                         <h4 class="bubble-section-title">
                             <ha-icon icon="mdi:information-outline"></ha-icon>
-                            Background updates
+                            后台更新
                         </h4>
                         <div class="content">
-                            <p>Background updates are only recommended if you encounter issues with certain cards within your pop-up.</p>
+                            <p>只有在你的弹出面板中某些卡片出现问题时，才建议启用后台更新。</p>
                         </div>
                     </div>
                 </div>
@@ -341,7 +341,7 @@ export function renderPopUpEditor(editor) {
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:bell"></ha-icon>
-                  Pop-up trigger
+                  弹出面板触发器
                 </h4>
                 <div class="content">
                     <ha-formfield>
@@ -351,7 +351,7 @@ export function renderPopUpEditor(editor) {
                             @change=${editor._valueChanged}
                         ></ha-switch>
                         <div class="mdc-form-field">
-                            <label class="mdc-label">Close pop-up when conditions are not met</label> 
+                            <label class="mdc-label">条件不满足时关闭弹出面板</label> 
                         </div>
                     </ha-formfield>
                     <ha-card-conditions-editor
@@ -363,11 +363,11 @@ export function renderPopUpEditor(editor) {
                     <div class="bubble-info">
                         <h4 class="bubble-section-title">
                             <ha-icon icon="mdi:information-outline"></ha-icon>
-                            About conditions
+                            关于条件
                         </h4>
                         <div class="content">
-                            <p>The pop-up will be opened when ALL conditions are fulfilled. For example you can open a "Security" pop-up with a camera when a person is in front of your house.</p>
-                            <p>You can also create a toggle helper (<code>input_boolean</code>) and trigger its opening/closing in an automation.</p>
+                            <p>只有所有条件都满足时，弹出面板才会被打开。例如，当有人出现在你家门口时，你可以自动打开一个带摄像头画面的“安防”弹出面板。</p>
+                            <p>你也可以创建一个辅助量<code>input_boolean</code>，然后在自动化里控制它的开启/关闭来触发弹出面板。</p>
                         </div>
                     </div>
                 </div>
@@ -375,18 +375,18 @@ export function renderPopUpEditor(editor) {
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap"></ha-icon>
-                  Pop-up open/close action
+                  开启/关闭行为
                 </h4>
                 <div class="content">
-                    ${editor.makeActionPanel("Open action", editor._config, 'none')}
-                    ${editor.makeActionPanel("Close action", editor._config, 'none')}
+                    ${editor.makeActionPanel("开启行为", editor._config, 'none')}
+                    ${editor.makeActionPanel("关闭行为", editor._config, 'none')}
                     <div class="bubble-info">
                         <h4 class="bubble-section-title">
                             <ha-icon icon="mdi:information-outline"></ha-icon>
-                            About actions
+                            关于行为
                         </h4>
                         <div class="content">
-                            <p>This allows you to trigger an action on pop-up open/close.</p>
+                            <p>这可以让你在弹出面板打开或关闭时触发一个动作。</p>
                         </div>
                     </div>
                 </div>
@@ -394,48 +394,48 @@ export function renderPopUpEditor(editor) {
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling options
+                  样式
                 </h4>
                 <div class="content">
                     ${editor.makeLayoutOptions()}
                     <ha-expansion-panel outlined>
                         <h4 slot="header">
                           <ha-icon icon="mdi:palette"></ha-icon>
-                          Pop-up styling
+                          弹出面板样式
                         </h4>
                         <div class="content"> 
                             <ha-textfield
-                                label="Margin (fix centering on some themes) (e.g. 13px)"
+                                label="边距（用于修复部分居中问题，如13px）"
                                 .value="${editor._config?.margin || '7px'}"
                                 .configValue="${"margin"}"
                                 @input="${editor._valueChanged}"
                             ></ha-textfield>
                             <ha-textfield
-                                label="Top margin on mobile (e.g. -56px if your header is hidden)"
+                                label="移动端顶部边距（例如标题栏隐藏时可设为-56px）"
                                 .value="${editor._config?.margin_top_mobile || '0px'}"
                                 .configValue="${"margin_top_mobile"}"
                                 @input="${editor._valueChanged}"
                             ></ha-textfield>
                             <ha-textfield
-                                label="Top margin on desktop (e.g. 50vh for an half sized pop-up)"
+                                label="桌面端顶部边距（例如50vh用于半屏弹出面板）"
                                 .value="${editor._config?.margin_top_desktop || '0px'}"
                                 .configValue="${"margin_top_desktop"}"
                                 @input="${editor._valueChanged}"
                             ></ha-textfield>
                             <ha-textfield
-                                label="Width on desktop (100% by default on mobile)"
+                                label="桌面端宽度（移动端默认100%）"
                                 .value="${editor._config?.width_desktop || '540px'}"
                                 .configValue="${"width_desktop"}"
                                 @input="${editor._valueChanged}"
                             ></ha-textfield>
                             <ha-textfield
-                                label="Background color (any var, hex, rgb or rgba value)"
+                                label="背景色（支持var、hex、rgb、rgba）"
                                 .value="${editor._config?.bg_color || ''}"
                                 .configValue="${"bg_color"}"
                                 @input="${editor._valueChanged}"
                             ></ha-textfield>
                             <ha-textfield
-                                label="Background opacity (0-100 range)"
+                                label="背景透明度（0–100）"
                                 type="number"
                                 inputMode="numeric"
                                 min="0"
@@ -445,7 +445,7 @@ export function renderPopUpEditor(editor) {
                                 @input="${editor._valueChanged}"
                             ></ha-textfield>
                             <ha-textfield
-                                label="Background blur (0-100 range)"
+                                label="背景模糊（0–100）"
                                 type="number"
                                 inputMode="numeric"
                                 min="0"
@@ -455,7 +455,7 @@ export function renderPopUpEditor(editor) {
                                 @input="${editor._valueChanged}"
                             ></ha-textfield>
                             <ha-textfield
-                                label="Backdrop blur (0-100 range)"
+                                label="背景遮罩模糊（0–100）"
                                 type="number"
                                 inputMode="numeric"
                                 min="0"
@@ -465,7 +465,7 @@ export function renderPopUpEditor(editor) {
                                 @input="${editor._valueChanged}"
                             ></ha-textfield>
                             <ha-textfield
-                                label="Shadow opacity (0-100 range)"
+                                label="阴影透明度（0–100）"
                                 type="number"
                                 inputMode="numeric"
                                 min="0"
@@ -474,26 +474,26 @@ export function renderPopUpEditor(editor) {
                                 .value="${editor._config?.shadow_opacity !== undefined ? editor._config?.shadow_opacity : '0'}"
                                 @input="${editor._valueChanged}"
                             ></ha-textfield>
-                            <ha-formfield .label="Hide pop-up backdrop (a refresh is needed)">
+                            <ha-formfield .label="隐藏弹出面板背景层（刷新后生效）">
                                 <ha-switch
-                                    aria-label="Hide pop-up backdrop (a refresh is needed)"
+                                    aria-label="隐藏弹出面板背景层（刷新后生效）"
                                     .checked=${editor._config.hide_backdrop ?? false}
                                     .configValue="${"hide_backdrop"}"
                                     @change=${editor._valueChanged}
                                 ></ha-switch>
                                 <div class="mdc-form-field">
-                                    <label class="mdc-label">Hide pop-up backdrop (a refresh is needed)</label> 
+                                    <label class="mdc-label">隐藏弹出面板背景层（刷新后生效）</label> 
                                 </div>
                             </ha-formfield>
                             <div class="bubble-info">
                                 <h4 class="bubble-section-title">
                                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                                    Hide pop-up backdrop
+                                    隐藏弹出面板背景层
                                 </h4>
                                 <div class="content">
-                                    <p>This will hide the pop-up backdrop, which is a dark overlay that appears behind the pop-up.</p>
-                                    <p>You can enable this setting for all your pop-ups at once by turning it on in the first pop-up on your dashboard.</p>
-                                    <p><b>Hiding it is recommended if you encounter performance issues when opening/closing pop-ups.</b></p>
+                                    <p>这会隐藏弹出面板的背景遮罩，也就是弹出面板下面的深色覆盖层。</p>
+                                    <p>你可以在仪表板上的第一个弹出面板中开启这个设置，这样所有弹出面板都会一并应用这个选项。</p>
+                                    <p><b>如果你在打开或关闭弹出面板时遇到性能问题，建议启用此功能。</b></p>
                                 </div>
                             </div>
                         </div>
@@ -506,22 +506,22 @@ export function renderPopUpEditor(editor) {
                 <div class="bubble-info">
                     <h4 class="bubble-section-title">
                         <ha-icon icon="mdi:information-outline"></ha-icon>
-                        How to use pop-ups
+                        如何使用弹出面板
                     </h4>
                     <div class="content">
-                        <p>Each pop-up is <b>hidden by default</b> and <b>can be opened by targeting its hash</b> (e.g., '#pop-up-name'), with <a href="https://github.com/Clooos/Bubble-Card#example" target="_blank" rel="noopener noreferrer">any card</a> that supports the <code>navigate</code> <a href="https://github.com/Clooos/Bubble-Card?tab=readme-ov-file#tap-double-tap-and-hold-actions" target="_blank" rel="noopener noreferrer">action</a>.</p>
-                        <p><b>You can also watch this <a href="https://www.youtube.com/watch?v=7mOV7BfWoFc" target="_blank" rel="noopener noreferrer">video</a> that explains how to create your first pop-up</b> (this video is outdated, you don't need to add a vertical stack anymore).</p>
+                        <p>弹出面板默认是隐藏的，你可以通过触发它的锚点标识（例如#pop-up-name），使用任意支持“前往”动作的卡片来打开它。</p>
+                        <p>你也可以观看这段<a href="https://www.youtube.com/watch?v=7mOV7BfWoFc" target="_blank" rel="noopener noreferrer">视频</a>，了解如何创建你的第一个弹出面板。（注意：视频内容已经过时，现在不需要添加垂直堆叠了。）</p>
                     </div>
                 </div>
                 
                 <div class="bubble-info warning">
                     <h4 class="bubble-section-title">
                         <ha-icon icon="mdi:alert-outline"></ha-icon>
-                        Important
+                        重要提示
                     </h4>
                     <div class="content">
-                        <p>To avoid misalignment with your view, place this card after all other dashboard cards. You can't trigger it from a different view.</p>
-                        <p>If the content of your pop-up appears on the screen during page loading, <a href="https://github.com/Clooos/Bubble-Card#pop-up-initialization-fix" target="_blank" rel="noopener noreferrer">you can install this fix</a> (recommended).</p>
+                        <p>为了避免与当前视图发生错位，请将这个卡片放在当前仪表板中，所有卡片的最后。你无法从其他页面中触发这个弹出面板。</p>
+                        <p>如果页面加载时，弹出面板的内容会在屏幕上闪一下，可以安装<a href="https://github.com/Clooos/Bubble-Card#pop-up-initialization-fix" target="_blank" rel="noopener noreferrer">这个补丁</a>（推荐）。</p>
                     </div>
                 </div>
             </div>

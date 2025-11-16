@@ -210,7 +210,7 @@ export function renderModuleEditorForm(context) {
         <div class="form-content">
           <h3>
             <ha-icon style="margin: 8px;" icon="${context._showNewModuleForm ? 'mdi:puzzle-plus-outline' : 'mdi:puzzle-edit-outline'}"></ha-icon>
-            ${context._showNewModuleForm ? 'Create new Module' : context._editingModule.id === 'default' ? 'Edit Default Module' : 'Edit Module'}
+            ${context._showNewModuleForm ? 'Create new Module' : context._editingModule.id === 'default' ? '编辑默认模块' : 'Edit Module'}
           </h3>
           
           <div class="module-editor-not-default" style="display: ${context._editingModule.id === 'default' ? 'none' : ''}">
@@ -246,25 +246,25 @@ export function renderModuleEditorForm(context) {
               ?disabled=${!context._showNewModuleForm || isFromYamlFile}
             ></ha-textfield>
             <span class="helper-text">
-              Must be unique and cannot be changed after the Module is created.
+              必须唯一，且模块创建后将不可更改。
             </span>
             
             <ha-textfield
-              label="Module Name"
+              label="模块名称"
               .value=${context._editingModule.name || ''}
               @input=${(e) => { context._editingModule.name = e.target.value; }}
               ?disabled=${isFromYamlFile}
             ></ha-textfield>
             
             <ha-textfield
-              label="Version"
+              label="版本"
               .value=${context._editingModule.version || '1.0'}
               @input=${(e) => { context._editingModule.version = e.target.value; }}
               ?disabled=${isFromYamlFile}
             ></ha-textfield>
             
             <ha-textfield
-              label="Creator"
+              label="作者"
               .value=${context._editingModule.creator || ''}
               @input=${(e) => { context._editingModule.creator = e.target.value; }}
               ?disabled=${isFromYamlFile}
@@ -272,7 +272,7 @@ export function renderModuleEditorForm(context) {
             
             <ha-expansion-panel .header=${html`
               <ha-icon icon="mdi:filter-check-outline" style="margin-right: 8px;"></ha-icon>
-              Supported cards
+              支持的卡片类型
             `}>
               <div>
                 ${renderSupportedCardCheckboxes(context, isFromYamlFile)}
@@ -299,7 +299,7 @@ export function renderModuleEditorForm(context) {
 
           <ha-expansion-panel .header=${html`
             <ha-icon icon="mdi:code-json" style="margin-right: 8px;"></ha-icon>
-            Code (CSS/JS template)
+            代码（CSS或JS模板）
           `}>
             <div class="code-editor-container">
               <ha-code-editor
@@ -311,7 +311,7 @@ export function renderModuleEditorForm(context) {
             </div>
             ${context.createErrorConsole(context)}
             <span class="helper-text">
-              More information and examples about the CSS and JS template possibilities can be found in the <a href="https://github.com/Clooos/Bubble-Card?tab=readme-ov-file#styling" target="_blank">Styling and Templates documentation</a>. Tip: You can enlarge the editor by clicking on the panel title (Bubble Card configuration).
+              关于CSS与JS模板的更多信息和示例，请参阅<a href="https://github.com/Clooos/Bubble-Card?tab=readme-ov-file#styling" target="_blank">样式与模板文档</a>。提示：你可以点击面板标题来放大编辑器。
             </span>
           </ha-expansion-panel>
           
@@ -361,14 +361,14 @@ export function renderModuleEditorForm(context) {
                 style="display: ${!context._yamlErrorMessage ? 'none' : ''}">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:alert-circle-outline"></ha-icon>
-                    Error in YAML schema
+                    YAML schema错误
                 </h4>
                 <div class="content">
                     <pre style="margin: 0; white-space: pre-wrap; font-size: 12px;">${context._yamlErrorMessage ? context._yamlErrorMessage.charAt(0).toUpperCase() + context._yamlErrorMessage.slice(1) : ''}</pre>
                 </div>
             </div>
             <span class="helper-text">
-              This allows you to add a visual editor to your module. Learn about all available editor schema options in the <a href="https://github.com/Clooos/Bubble-Card/blob/main/src/modules/editor-schema-docs.md" target="_blank">editor schema documentation</a>.
+              这可以让你的模块添加一个可视化编辑器。你可以在<a href="https://github.com/Clooos/Bubble-Card/blob/main/src/modules/editor-schema-docs.md" target="_blank">编辑器 schema 文档</a>中了解所有可用的编辑器 schema 选项。
             </span>
 
             ${context._editingModule.editor && Array.isArray(context._editingModule.editor) && context._editingModule.editor.length > 0 ? html`
@@ -390,13 +390,13 @@ export function renderModuleEditorForm(context) {
             <div class="bubble-info warning" style="margin-top: 8px;">
               <h4 class="bubble-section-title">
                 <ha-icon icon="mdi:alert-circle-outline"></ha-icon>
-                Save disabled
+                保存已禁用
               </h4>
               <div class="content">
                 <p style="margin: 0;">
-                  ${hasYamlError ? html`Fix the error(s) in the Editor schema (YAML) above to enable saving.` : ''}
+                  ${hasYamlError ? html`请修复上方编辑器Schema（YAML）中的错误后再尝试保存。` : ''}
                   ${hasYamlError && hasTemplateError ? html`<br>` : ''}
-                  ${hasTemplateError ? html`Fix the error(s) in the CSS/JS template above to enable saving.` : ''}
+                  ${hasTemplateError ? html`请修复上方CSS/JS模板中的错误后再尝试保存。` : ''}
                 </p>
               </div>
             </div>
@@ -406,51 +406,50 @@ export function renderModuleEditorForm(context) {
 
           <ha-expansion-panel .header=${html`
             <ha-icon icon="mdi:export" style="margin-right: 8px;"></ha-icon>
-            Export Module
+            导出模块
           `}>
             <div class="content">
                 <div class="export-section">
                     <div class="export-buttons">
                         <button class="icon-button" @click=${() => {
                         const yamlExport = generateYamlExport(context._editingModule);
-                        copyToClipboard(context, yamlExport, "YAML format copied to clipboard!", updateExportPreview);
+                        copyToClipboard(context, yamlExport, "YAML已经拷贝到剪切板！", updateExportPreview);
                         }}>
                         <ha-icon icon="mdi:content-copy"></ha-icon>
-                        Copy YAML
+                        拷贝为YAML
                         </button>
                         
                         <button class="icon-button" @click=${() => {
                         const githubExport = generateGitHubExport(context._editingModule);
-                        copyToClipboard(context, githubExport, "GitHub Discussion format copied to clipboard!", updateExportPreview);
+                        copyToClipboard(context, githubExport, "GitHub讨论已经拷贝到剪切板！", updateExportPreview);
                         }}>
                         <ha-icon icon="mdi:content-copy"></ha-icon>
-                        Copy for GitHub
+                        拷贝为GitHub提交
                         </button>
                         
                         <button class="icon-button" @click=${() => {
                         downloadModuleAsYaml(context, context._editingModule, updateExportPreview);
                         }}>
                         <ha-icon icon="mdi:file-download"></ha-icon>
-                        Download YAML
+                        下载YAML
                         </button>
                     </div>
                     
                     <div class="export-preview">
-                        <ha-expansion-panel .header=${"Export preview"}>
-                        <pre id="export-preview-content">Click on a button above to generate the preview</pre>
+                        <ha-expansion-panel .header=${"导出预览"}>
+                        <pre id="export-preview-content">点击上方按钮以生成预览</pre>
                         </ha-expansion-panel>
                     </div>
 
                     <div class="bubble-info">
                       <h4 class="bubble-section-title">
                         <ha-icon icon="mdi:information-outline"></ha-icon>
-                        Sharing your Module to the Store
+                        把你的模块分享到商店
                       </h4>
                       <div class="content">
-                        <p>To share your Module to the Module Store, click on <strong>Copy for GitHub</strong> and paste the content in a new discussion in the
-                        <a href="https://github.com/Clooos/Bubble-Card/discussions/categories/share-your-modules" target="_blank">Share your Modules</a> category.
-                        <strong>Edit the description</strong> (if needed), <strong>the example</strong> (for YAML users), and remember to <strong>include at least one screenshot</strong> for the Module Store.</p>
-                        <p><strong>Your Module becomes available right after that</strong> (after a Store refresh), so double-check that everything is correctly written and the Module is working as expected. You can of course edit/update the Module after it is shared.</p>
+                        <p>要将你的模块分享到模块商店，点击<strong>拷贝为GitHub提交</strong>，然后把内容粘贴到<a href="https://github.com/Clooos/Bubble-Card/discussions/categories/share-your-modules" target="_blank">分享你的模块</a>分类中新建的讨论帖里。
+                        如果需要，你可以<strong>编辑描述、示例</strong>（会展示给使用你模块的用户），并且记得<strong>至少添加一张截图</strong>，方便在模块商店展示。</p>
+                        <p>提交后，只要刷新一下商店，<strong>你的模块就会立刻可用</strong>。所以确保内容正确，且模块正常工作。当然，你之后也可以随时编辑或更新你分享的模块。</p>
                       </div>
                     </div>
                 </div>
@@ -493,7 +492,7 @@ export function renderModuleEditorForm(context) {
               }
             }}>
               <ha-icon icon="mdi:close"></ha-icon>
-              Cancel
+              退出编辑
             </button>
             
             <button class="icon-button ${isFromYamlFile || hasBlockingErrors ? 'disabled' : ''}" ?disabled=${isFromYamlFile || hasBlockingErrors} style="flex: 1;" @click=${() => {              
@@ -502,7 +501,7 @@ export function renderModuleEditorForm(context) {
               setTimeout(() => scrollToModuleForm(context), 0);
             }}>
               <ha-icon icon="mdi:content-save"></ha-icon>
-              Save Module
+              保存模块
             </button>
           </div>
         </div>
@@ -514,15 +513,15 @@ export function renderModuleEditorForm(context) {
 function renderSupportedCardCheckboxes(context, isFromYamlFile = false) {
   // Map of available card types with friendly names
   const availableCardTypes = [
-    { id: 'button', name: 'Button' }, 
-    { id: 'calendar', name: 'Calendar' }, 
-    { id: 'climate', name: 'Climate' }, 
-    { id: 'cover', name: 'Cover' }, 
-    { id: 'horizontal-buttons-stack', name: 'Horizontal buttons stack' }, 
-    { id: 'media-player', name: 'Media player' }, 
-    { id: 'pop-up', name: 'Pop-up' }, 
-    { id: 'select', name: 'Select' }, 
-    { id: 'separator', name: 'Separator' }
+    { id: 'button', name: '按钮' }, 
+    { id: 'calendar', name: '日历' }, 
+    { id: 'climate', name: '空调' }, 
+    { id: 'cover', name: '遮阳设备' }, 
+    { id: 'horizontal-buttons-stack', name: '水平按钮组' }, 
+    { id: 'media-player', name: '媒体播放器' }, 
+    { id: 'pop-up', name: '弹出面板' }, 
+    { id: 'select', name: '选单' }, 
+    { id: 'separator', name: '分隔线' }
   ];
   
   // Initialize supported array if not exists
@@ -566,7 +565,7 @@ function renderSupportedCardCheckboxes(context, isFromYamlFile = false) {
       `)}
     </div>
     <div class="helper-text">
-      Select the card types that this module supports.
+      选择此模块所支持的卡片类型。
     </div>
   `;
 }

@@ -74,7 +74,7 @@ export function makeSubButtonPanel(editor) {
             >
                 <h4 slot="header">
                     <ha-icon icon="mdi:border-radius"></ha-icon>
-                    ${editor._config.sub_button[index] ? "Button " + (index + 1) + (subButton.name ? " - " + subButton.name : "") : "New button"}
+                    ${editor._config.sub_button[index] ? "子按钮 " + (index + 1) + (subButton.name ? " - " + subButton.name : "") : "新建按钮"}
                     <div class="button-container">
                         <button class="icon-button header" @click="${removeSubButton}">
                             <ha-icon icon="mdi:delete"></ha-icon>
@@ -98,7 +98,7 @@ export function makeSubButtonPanel(editor) {
                         >
                             <h4 slot="header">
                                 <ha-icon icon="mdi:cog"></ha-icon>
-                                Button settings
+                                按钮设置
                             </h4>
                             <div class="content">
                                 ${getLazyLoadedPanelContent(editor, settingsPanelKey, !!editor._expandedPanelStates[settingsPanelKey], () => html` 
@@ -107,7 +107,7 @@ export function makeSubButtonPanel(editor) {
                                         .data=${subButton}
                                         .schema=${[
                                                     { name: "entity",
-                                                        label: "Optional - Entity (default to card entity)", 
+                                                        label: "实体（可选，默认为此卡片主实体）", 
                                                         selector: { entity: {} },
                                                     },
                                                 ]}   
@@ -117,7 +117,7 @@ export function makeSubButtonPanel(editor) {
                                     ${hasSelectAttributeList ? html`
                                         <div class="ha-combo-box">
                                             <ha-combo-box
-                                                label="Optional - Select menu (from attributes)"
+                                                label="选单（可选，来自属性）"
                                                 .value="${subButton.select_attribute}"
                                                 .items="${selectableAttributeList}"
                                                 @value-changed="${(ev) => editor._arrayValueChange(index, { select_attribute: ev.detail.value }, 'sub_button')}"
@@ -126,14 +126,14 @@ export function makeSubButtonPanel(editor) {
                                     ` : ''}
                                     <div class="ha-textfield">
                                         <ha-textfield
-                                            label="Optional - Name"
+                                            label="名称（可选）"
                                             .value="${subButton.name ?? ''}"
                                             @input="${(ev) => editor._arrayValueChange(index, { name: ev.target.value }, 'sub_button')}"
                                         ></ha-textfield>
                                     </div>
                                     <div class="ha-icon-picker">
                                         <ha-icon-picker
-                                            label="Optional - Icon"
+                                            label="图标（可选）"
                                             .value="${subButton.icon}"
                                             item-label-path="label"
                                             item-value-path="value"
@@ -153,15 +153,15 @@ export function makeSubButtonPanel(editor) {
                         >
                             <h4 slot="header">
                                 <ha-icon icon="mdi:gesture-tap"></ha-icon>
-                                Tap action on button
+                                按钮点击行为
                             </h4>
                             <div class="content">
                                 ${getLazyLoadedPanelContent(editor, actionsPanelKey, !!editor._expandedPanelStates[actionsPanelKey], () => html`
                                     <div style="${isSelect ? 'opacity: 0.5; pointer-events: none;' : ''}">
-                                        ${editor.makeActionPanel("Tap action", subButton, 'more-info', 'sub_button', index)}
+                                        ${editor.makeActionPanel("单击行为", subButton, 'more-info', 'sub_button', index)}
                                     </div>
-                                    ${editor.makeActionPanel("Double tap action", subButton, 'none', 'sub_button', index)}
-                                    ${editor.makeActionPanel("Hold action", subButton, 'none', 'sub_button', index)}
+                                    ${editor.makeActionPanel("双击行为", subButton, 'none', 'sub_button', index)}
+                                    ${editor.makeActionPanel("长按行为", subButton, 'none', 'sub_button', index)}
                                 `)}
                             </div>
                         </ha-expansion-panel>
@@ -174,11 +174,11 @@ export function makeSubButtonPanel(editor) {
                         >
                             <h4 slot="header">
                                 <ha-icon icon="mdi:eye"></ha-icon>
-                            Visibility
+                            可见性
                             </h4>
                             <div class="content">
                                 ${getLazyLoadedPanelContent(editor, visibilityPanelKey, !!editor._expandedPanelStates[visibilityPanelKey], () => html`
-                                    <ha-formfield label="Hide when parent entity is unavailable">
+                                    <ha-formfield label="父实体不可用时隐藏">
                                         <ha-switch
                                             .checked=${subButton.hide_when_parent_unavailable ?? false}
                                             @change=${(ev) => editor._arrayValueChange(index, { hide_when_parent_unavailable: ev.target.checked }, 'sub_button')}
@@ -191,7 +191,7 @@ export function makeSubButtonPanel(editor) {
                                     >
                                     </ha-card-conditions-editor>
                                     <ha-alert alert-type="info">
-                                        The sub-button will be shown when ALL conditions are fulfilled. If no conditions are set, the sub-button will always be shown.
+                                        只有在所有条件都满足时，子按钮才会显示。如果没有设置任何条件，子按钮始终显示。
                                     </ha-alert>
                                 `)}
                             </div>
@@ -221,32 +221,32 @@ export function makeSubButtonPanel(editor) {
         <ha-expansion-panel outlined>
             <h4 slot="header">
             <ha-icon icon="mdi:shape-square-rounded-plus"></ha-icon>
-            Sub-buttons editor
+            子按钮
             </h4>
             <div class="content">
             ${subButtonElements}
             <button class="icon-button" @click="${addSubButton}">
                 <ha-icon icon="mdi:plus"></ha-icon>
-                New sub-button
+                新建子按钮
             </button>
             <div class="bubble-info">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                    Sub-buttons
+                    子按钮
                 </h4>
                 <div class="content">
-                    <p>This editor allows you to add customized sub-buttons to your card.</p>
-                    <p>These buttons can also display dropdown menus if combined with selectable entities like:</p>
+                    <p>这个编辑器允许你为卡片添加自定义子按钮。</p>
+                    <p>如果与以下实体搭配使用，按钮还可以显示下拉菜单：</p>
                     <ul class="icon-list">
-                        <li><ha-icon icon="mdi:format-list-bulleted"></ha-icon>Input Select entities</li>
-                        <li><ha-icon icon="mdi:form-dropdown"></ha-icon>Select entities</li>
-                        <li><ha-icon icon="mdi:playlist-music"></ha-icon>Media players with&nbsp;<b>source list</b></li>
-                        <li><ha-icon icon="mdi:speaker"></ha-icon>Media players with&nbsp;<b>sound mode list</b></li>
-                        <li><ha-icon icon="mdi:thermostat"></ha-icon>Climate entities with&nbsp;<b>hvac modes</b></li>
-                        <li><ha-icon icon="mdi:fan"></ha-icon>Climate/Fan entities with&nbsp;<b>fan modes</b></li>
-                        <li><ha-icon icon="mdi:air-conditioner"></ha-icon>Climate entities with&nbsp;<b>swing modes</b></li>
-                        <li><ha-icon icon="mdi:thermostat-auto"></ha-icon>Climate entities with&nbsp;<b>preset modes</b></li>
-                        <li><ha-icon icon="mdi:lightbulb-group"></ha-icon>Light entities with&nbsp;<b>effect list</b></li>
+                        <li><ha-icon icon="mdi:format-list-bulleted"></ha-icon>“输入选单”实体</li>
+                        <li><ha-icon icon="mdi:form-dropdown"></ha-icon>“选单”实体</li>
+                        <li><ha-icon icon="mdi:playlist-music"></ha-icon>带有“来源列表”的媒体播放器</li>
+                        <li><ha-icon icon="mdi:speaker"></ha-icon>带有“音效模式列表”的媒体播放器</li>
+                        <li><ha-icon icon="mdi:thermostat"></ha-icon>带有“空调模式”的空调实体</li>
+                        <li><ha-icon icon="mdi:fan"></ha-icon>带有“风扇模式”的空调/风扇实体</li>
+                        <li><ha-icon icon="mdi:air-conditioner"></ha-icon>带有“摆风模式”的空调实体</li>
+                        <li><ha-icon icon="mdi:thermostat-auto"></ha-icon>带有“预设模式”的空调实体</li>
+                        <li><ha-icon icon="mdi:lightbulb-group"></ha-icon>带有“效果列表”的灯光实体</li>
                     </ul>
                 </div>
             </div>

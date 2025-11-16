@@ -42,16 +42,16 @@ export function makeModuleStore(context) {
       <div class="bubble-info warning">
         <h4 class="bubble-section-title">
           <ha-icon icon="mdi:alert-circle-outline"></ha-icon>
-          Configuration required
+          需要进行配置
         </h4>
         <div class="content">
-          <p>The storage entity <code>sensor.bubble_card_modules</code> is not configured in your Home Assistant instance.</p>
+          <p>你的Home Assistant中尚未配置用于存储的 <code>sensor.bubble_card_modules</code> 实体。</p>
           <hr />
           <p><b>To use the Module store, follow these steps:</b></p>
 
-          <p>1. Add the following to your <code>configuration.yaml</code> file:</p>
+          <p>1. 在 <code>configuration.yaml</code> 文件中，添加以下内容：</p>
           <code-block><pre>
-# Storage for Bubble Card Modules
+# Bubble Card 模块存储
 template:
   - trigger:
       - trigger: event
@@ -64,8 +64,8 @@ template:
           modules: "{{ trigger.event.data.modules }}"
           last_updated: "{{ trigger.event.data.last_updated }}"
           </pre></code-block>
-          <p>2. Save the file and restart Home Assistant</p>
-          <p>3. Enjoy the Module store!</p>
+          <p>2. 保存并重启Home Assistant</p>
+          <p>3. 即可使用模块商店！</p>
         </div>
       </div>
     `;
@@ -107,7 +107,7 @@ template:
   if (context._isLoadingStore) {
     // Calculate progress percentage width based on current progress
     const progressWidth = context._loadingProgress || 0;
-    const loadingText = context._loadingStatus || "Loading modules";
+    const loadingText = context._loadingStatus || "正在加载模块";
     
     return html`
       <div class="store-loading">
@@ -139,13 +139,13 @@ template:
       <div class="bubble-info error">
         <h4 class="bubble-section-title">
           <ha-icon icon="mdi:alert-circle-outline"></ha-icon>
-          Loading error
+          加载失败
         </h4>
         <div class="content">
           <p>Could not load modules from GitHub: ${context._storeError}</p>
           <mwc-button @click=${() => _fetchModuleStore(context)}>
             <ha-icon icon="mdi:refresh" style="margin-right: 8px;"></ha-icon>
-            Retry
+            重试
           </mwc-button>
         </div>
       </div>
@@ -181,7 +181,7 @@ template:
         <div class="store-header-top">
           <div class="store-header-title">
             <ha-icon icon="mdi:puzzle-plus-outline"></ha-icon>
-            <span>Module Store</span>
+            <span>模块商店</span>
           </div>
           <div 
             class="store-refresh-button" 
@@ -190,14 +190,14 @@ template:
               context._isApiCallInProgress = false;
               _fetchModuleStore(context, false);
             }}
-            title="Refresh module list"
+            title="刷新模块列表"
           >
             <ha-icon icon="mdi:refresh"></ha-icon>
           </div>
         </div>
         <div class="store-search">
           <ha-textfield
-            label="Search for a module"
+            label="搜索模块"
             icon
             .value=${context._storeSearchQuery || ''}
             @input=${(e) => {
@@ -212,7 +212,7 @@ template:
         </div>
         <div class="store-filters">
 
-          <ha-formfield label="Show only modules compatible with this card">
+          <ha-formfield label="仅显示与此卡片兼容的模块">
             <ha-switch
               .checked=${context._storeShowOnlyCompatible ?? true}
               @change=${(e) => {
@@ -229,8 +229,8 @@ template:
           <div class="bubble-info-header">
             <h4 class="bubble-section-title">
               <ha-icon icon="mdi:information-outline"></ha-icon>
-              How modules are ranked
-              <div class="bubble-info-dismiss bubble-badge" @click=${context._dismissRankingInfo} title="Dismiss" 
+              模块如何排名？
+              <div class="bubble-info-dismiss bubble-badge" @click=${context._dismissRankingInfo} title="关闭" 
                 style="
                   display: inline-flex;
                   align-items: center;
@@ -245,8 +245,8 @@ template:
             </h4>
           </div>
           <div class="content">
-            <p>Due to a limitation in GitHub's API, only top-level reactions like ❤️ 👍 🚀 on the main discussion post are counted for popularity, along with other factors like recent activity, number of comments, updates...</p>
-            <p><b>Click the "More info" button and show some love there if you find a module useful!</b></p>
+            <p>由于GitHub API的限制，只会统计主讨论帖上的表情（如❤️👍🚀）来计算受欢迎程度，并结合其他因素，如：近期活动、评论数量、更新频率等。</p>
+            <p><b>如果你觉得某个模块有用，点一下“更多信息”按钮去支持一下吧！</b></p>
           </div>
         </div>
       ` : ''}
@@ -278,12 +278,12 @@ template:
                 <div class="store-module-meta">
                   <div class="store-module-author">
                     ${module.userAvatar ? html`
-                      <img src="${module.userAvatar}" alt="${module.creator || 'Anonymous'}" class="author-avatar">
+                      <img src="${module.userAvatar}" alt="${module.creator || '匿名'}" class="author-avatar">
                     ` : ''}
-                    <span>by ${module.creator || 'Anonymous'}</span>
+                    <span>来自 ${module.creator || '匿名'}</span>
                   </div>
                   <div class="version-container">
-                    ${_isNewModule(module) ? html`<span class="bubble-badge new-badge"><ha-icon icon="mdi:bell-outline"></ha-icon> New</span>` : ''}
+                    ${_isNewModule(module) ? html`<span class="bubble-badge new-badge"><ha-icon icon="mdi:bell-outline"></ha-icon> 新的</span>` : ''}
                     ${!isCompatible ? html`<span class="bubble-badge incompatible-badge">Incompatible</span>` : ''}
                     ${hasUpdate ? html`<span class="bubble-badge update-badge">Update available</span>` : ''}
                     ${isInstalledViaYaml ? html`<span class="bubble-badge yaml-badge">YAML</span>` : ''}
@@ -300,7 +300,7 @@ template:
                   ${module.description ? html`
                     <p class="module-description" .innerHTML=${_formatModuleDescription(module.description)}></p>
                   ` : html`
-                    <p><em>No description</em></p>
+                    <p><em>没有描述</em></p>
                   `}
                   ${module.imageUrl ? html`
                     <div class="module-preview-container">
@@ -361,7 +361,7 @@ template:
                             style="cursor: pointer;"
                           >
                             <ha-icon icon="mdi:github"></ha-icon>
-                            <span>Manual install</span>
+                            <span>手动安装</span>
                           </a>
                         `
                         : html`
@@ -371,7 +371,7 @@ template:
                             style="cursor: pointer;"
                           >
                             <ha-icon icon="mdi:download"></ha-icon>
-                            <span>Install</span>
+                            <span>安装</span>
                           </div>
                         `
                       }
@@ -383,7 +383,7 @@ template:
                     class="bubble-badge link-button"
                   >
                     <ha-icon icon="mdi:github"></ha-icon>
-                    More info / Issue report
+                    更多信息/反馈
                   </a>
                 </div>
               </div>
@@ -396,10 +396,10 @@ template:
         <div class="bubble-info">
           <h4 class="bubble-section-title">
             <ha-icon icon="mdi:information-outline"></ha-icon>
-            No modules found
+            找不到模块
           </h4>
           <div class="content">
-            <p>No modules match your search criteria. Try modifying your search or filters.</p>
+            <p>没有符合搜索条件的模块，请尝试修改你的搜索内容或筛选条件。</p>
           </div>
         </div>
       ` : ''}
@@ -604,7 +604,7 @@ export function _isModuleInstalledViaYaml(moduleId) {
     const storedModules = JSON.parse(localStorage.getItem('bubble-card-modules') || '{}');
     return !storedModules[moduleId]; // Return true if NOT in localStorage (meaning it was installed via yaml)
   } catch (error) {
-    console.warn("Error checking module installation source:", error);
+    console.warn("检查模块安装来源时出错：", error);
     return false;
   }
 }
@@ -727,7 +727,7 @@ function _requiresManualInstallation(module) {
       }
     }
   } catch (error) {
-    console.warn("Error checking module YAML compatibility:", error);
+    console.warn("检查模块YAML兼容性时出错：", error);
     return true; // If we can't parse the YAML, manual installation required
   }
   
@@ -753,7 +753,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
     context._isLoadingStore = true;
     context._storeError = null;
     context._loadingProgress = 5;
-    context._loadingStatus = "Checking API limits";
+    context._loadingStatus = "正在检查API限制";
     context.requestUpdate();
     
     // Start progress animation
@@ -799,7 +799,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
       });
 
       if (!isBackgroundFetch) {
-        context._loadingStatus = "Analyzing API response";
+        context._loadingStatus = "正在解析API相应";
         context._loadingProgress = Math.min(context._loadingProgress + 5, 30);
         context.requestUpdate();
       }
@@ -810,19 +810,19 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
         
         // Only use cache if we're actually out of API calls
         if (remaining <= 1) { // Keep 1 call as buffer
-          console.warn("⚠️ API limit reached, using cache instead");
+          console.warn("⚠️以达到API限制，改为使用缓存");
           useCache = true;
         }
       } else {
         // If we can't check rate limit, fall back to cooldown logic
         useCache = true;
-        console.warn("⚠️ Could not check API rate limit, using cooldown logic");
+        console.warn("⚠️无法检查API速率限制，回退冷却机制");
       }
     }
 
     // Update loading status
     if (!isBackgroundFetch) {
-      context._loadingStatus = "Processing API data";
+      context._loadingStatus = "正在处理API数据";
       context._loadingProgress = Math.min(context._loadingProgress + 5, 40);
       context.requestUpdate();
     }
@@ -846,7 +846,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
           
           // Update loading status for using cache
           if (!isBackgroundFetch) {
-            context._loadingStatus = "Loading from cache";
+            context._loadingStatus = "正在从缓存中加载";
             context._loadingProgress = 60;
             context.requestUpdate();
           }
@@ -868,7 +868,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
       }
       
       if (!isBackgroundFetch) {
-        context._loadingStatus = "Loading from cache";
+        context._loadingStatus = "正在从缓存中加载";
         context._loadingProgress = 60;
         context.requestUpdate();
       }
@@ -882,7 +882,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
     let hasMorePages = true;
 
     if (!isBackgroundFetch) {
-      context._loadingStatus = "Downloading module data";
+      context._loadingStatus = "正在下载模块数据";
       context._loadingProgress = 50;
       context.requestUpdate();
     }
@@ -897,19 +897,19 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
       });
 
       if (!isBackgroundFetch) {
-        context._loadingStatus = `Processing page ${page}`;
+        context._loadingStatus = `正在处理页面 ${page}`;
         // Gradually increase progress as pages load
         context._loadingProgress = Math.min(50 + (page * 5), 80);
         context.requestUpdate();
       }
 
       if (!restResponse.ok) {
-        console.error("❌ REST API Error:", restResponse.status, restResponse.statusText);
+        console.error("❌ REST API 错误:", restResponse.status, restResponse.statusText);
         
         // Save failure timestamp for cooldown
         localStorage.setItem('bubble-card-api-failure-timestamp', Date.now().toString());
         
-        throw new Error(`REST API Error: ${restResponse.status}`);
+        throw new Error(`REST API 错误: ${restResponse.status}`);
       }
 
       const discussionsData = await restResponse.json();
@@ -926,7 +926,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
 
       // If approaching API limit, stop pagination but don't trigger cooldown
       if (remainingRequests <= 5) {
-        console.warn("⚠️ API limit approaching, stopping pagination");
+        console.warn("⚠️即将到达API限制，停止分页");
         hasMorePages = false;
       }
     }
@@ -934,16 +934,16 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
 
     // Update loading status
     if (!isBackgroundFetch) {
-      context._loadingStatus = "Filtering modules";
+      context._loadingStatus = "正在筛选模块";
       context._loadingProgress = 85;
       context.requestUpdate();
     }
 
-    // Filter discussions to keep only those in the "Share your Modules" category
+    // Filter discussions to keep only those in the "分享你的模块" category
     const moduleDiscussions = allDiscussions.filter(discussion => {
       const categoryName = discussion.category?.name;
       // Check for exact category match
-      return categoryName === "Share your Modules";
+      return categoryName === "分享你的模块";
     });
 
 
@@ -952,7 +952,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
 
     // Update loading status
     if (!isBackgroundFetch) {
-      context._loadingStatus = "Saving to cache";
+      context._loadingStatus = "正在保存缓存";
       context._loadingProgress = 95;
       context.requestUpdate();
     }
@@ -966,7 +966,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
       // Short pause to show progress at 95% before reaching 100%
       await new Promise(resolve => setTimeout(resolve, 300));
       context._loadingProgress = 100;
-      context._loadingStatus = "Complete";
+      context._loadingStatus = "完成";
       context.requestUpdate();
     }
 
@@ -990,11 +990,11 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
       context.requestUpdate();
     }
   } catch (error) {
-    console.error("Error loading modules:", error);
+    console.error("加载模块时遇到错误：", error);
 
     // In case of error, use cached data if available
     if (!isBackgroundFetch) {
-      context._loadingStatus = "Error - Loading from cache";
+      context._loadingStatus = "从缓存中加载模块时出错";
       context._loadingProgress = 85;
       context.requestUpdate();
       
@@ -1007,7 +1007,7 @@ export async function _fetchModuleStore(context, isBackgroundFetch = false) {
         context._storeModules = cachedData.modules;
         context._isLoadingStore = false;
         context._loadingProgress = 100;
-        context._loadingStatus = "Loaded from cache";
+        context._loadingStatus = "缓存加载完毕";
         context.requestUpdate();
       } else {
         context._storeError = error.message;

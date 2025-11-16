@@ -5,13 +5,13 @@ export function renderCoverEditor(editor){
     let button_action = editor._config.button_action || '';
     return html`
         <div class="card-config">
-            ${editor.makeDropdown("Card type", "card_type", editor.cardTypeList)}
+            ${editor.makeDropdown("卡片类型", "card_type", editor.cardTypeList)}
             <ha-form
                 .hass=${editor.hass}
                 .data=${editor._config}
                 .schema=${[
                             { name: "entity",
-                            label: "Entity", 
+                            label: "实体", 
                             selector: { entity: {domain:["cover"]}  },
                             },
                         ]}   
@@ -21,40 +21,40 @@ export function renderCoverEditor(editor){
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:cog"></ha-icon>
-                  Card settings
+                  卡片设置
                 </h4>
                 <div class="content"> 
                     <ha-textfield
-                        label="Optional - Name"
+                        label="名称（可选）"
                         .value="${editor._config?.name || ''}"
                         .configValue="${"name"}"
                         @input="${editor._valueChanged}"
                     ></ha-textfield>
-                    ${editor.makeDropdown("Optional - Open icon", "icon_open")}
-                    ${editor.makeDropdown("Optional - Closed icon", "icon_close")}
+                    ${editor.makeDropdown("开启图标（可选）", "icon_open")}
+                    ${editor.makeDropdown("闭合图标（可选）", "icon_close")}
                     ${editor.makeShowState()}
                 </div>
             </ha-expansion-panel>
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:window-shutter-cog"></ha-icon>
-                  Custom services
+                  自定义服务
                 </h4>
                 <div class="content"> 
                     <ha-textfield
-                        label="Optional - Open service (cover.open_cover by default)"
+                        label="开启时服务（可选，默认为cover.open_cover）"
                         .value="${editor._config?.open_service || 'cover.open_cover'}"
                         .configValue="${"open_service"}"
                         @input="${editor._valueChanged}"
                     ></ha-textfield>
                     <ha-textfield
-                        label="Optional - Stop service (cover.stop_cover by default)"
+                        label="停止时服务（可选，默认为cover.stop_cover）"
                         .value="${editor._config?.stop_service || 'cover.stop_cover'}"
                         .configValue="${"stop_service"}"
                         @input="${editor._valueChanged}"
                     ></ha-textfield>
                     <ha-textfield
-                        label="Optional - Close service (cover.close_cover by default)"
+                        label="闭合时服务（可选，默认为cover.close_cover）"
                         .value="${editor._config?.close_service || 'cover.close_cover'}"
                         .configValue="${"close_service"}"
                         @input="${editor._valueChanged}"
@@ -64,41 +64,41 @@ export function renderCoverEditor(editor){
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap"></ha-icon>
-                  Tap action on icon
+                  图标点击行为
                 </h4>
                 <div class="content">
-                    ${editor.makeActionPanel("Tap action")}
-                    ${editor.makeActionPanel("Double tap action")}
-                    ${editor.makeActionPanel("Hold action")}
+                    ${editor.makeActionPanel("单击行为")}
+                    ${editor.makeActionPanel("双击行为")}
+                    ${editor.makeActionPanel("长按行为")}
                 </div>
             </ha-expansion-panel>
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                 <ha-icon icon="mdi:gesture-tap-button"></ha-icon>
-                Tap action on card
+                卡片点击行为
                 </h4>
                 <div class="content">
-                    ${editor.makeActionPanel("Tap action", button_action, 'none', 'button_action')}
-                    ${editor.makeActionPanel("Double tap action", button_action, 'none', 'button_action')}
-                    ${editor.makeActionPanel("Hold action", button_action, 'none', 'button_action')}
+                    ${editor.makeActionPanel("单击行为", button_action, 'none', 'button_action')}
+                    ${editor.makeActionPanel("双击行为", button_action, 'none', 'button_action')}
+                    ${editor.makeActionPanel("长按行为", button_action, 'none', 'button_action')}
                 </div>
             </ha-expansion-panel>
             ${editor.makeSubButtonPanel()}
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling options
+                  样式
                 </h4>
                 <div class="content"> 
                     ${editor.makeLayoutOptions()}
                     <ha-expansion-panel outlined>
                         <h4 slot="header">
                           <ha-icon icon="mdi:palette"></ha-icon>
-                          Cover styling
+                          遮阳设备样式
                         </h4>
                         <div class="content"> 
-                            ${editor.makeDropdown("Optional - Arrow down icon", "icon_down")}
-                            ${editor.makeDropdown("Optional - Arrow up icon", "icon_up")}
+                            ${editor.makeDropdown("下箭头图标（可选）", "icon_down")}
+                            ${editor.makeDropdown("上箭头图标（可选）", "icon_up")}
                         </div>
                     </ha-expansion-panel>
                     ${editor.makeStyleEditor()}
@@ -108,10 +108,10 @@ export function renderCoverEditor(editor){
             <div class="bubble-info">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                    Cover card
+                    遮阳设备卡片
                 </h4>
                 <div class="content">
-                    <p>This card allows you to control your covers.</p>
+                    <p>这个卡片用于控制你的遮阳设备，例如卷帘、百叶窗、遮阳篷、升降门等。</p>
                 </div>
             </div>
             ${editor.makeVersion()}

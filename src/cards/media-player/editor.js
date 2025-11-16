@@ -7,13 +7,13 @@ export function renderMediaPlayerEditor(editor){
 
     return html`
         <div class="card-config">
-            ${editor.makeDropdown("Card type", "card_type", editor.cardTypeList)}
+            ${editor.makeDropdown("卡片类型", "card_type", editor.cardTypeList)}
             <ha-form
                 .hass=${editor.hass}
                 .data=${editor._config}
                 .schema=${[
                             { name: "entity",
-                            label: "Entity", 
+                            label: "实体", 
                             selector: { entity: {domain:["media_player"]}  },
                             },
                         ]}   
@@ -23,23 +23,23 @@ export function renderMediaPlayerEditor(editor){
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:cog"></ha-icon>
-                  Card settings
+                  卡片设置
                 </h4>
                 <div class="content"> 
                     <ha-textfield
-                        label="Optional - Name"
+                        label="名称（可选）"
                         .value="${editor._config?.name || ''}"
                         .configValue="${"name"}"
                         @input="${editor._valueChanged}"
                     ></ha-textfield>
-                    ${editor.makeDropdown("Optional - Icon", "icon")}
+                    ${editor.makeDropdown("图标（可选）", "icon")}
                     ${editor.makeShowState()}
                 </div>
             </ha-expansion-panel>
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                 <ha-icon icon="mdi:tune-variant"></ha-icon>
-                Media player settings
+                媒体播放器设置
                 </h4>
                 <div class="content">
                     <ha-form
@@ -52,14 +52,14 @@ export function renderMediaPlayerEditor(editor){
                                 schema: [
                                     {
                                         name: "min_volume",
-                                        label: "Min volume",
+                                        label: "最小音量",
                                         selector: { number: {
                                             step: "any"
                                         } },
                                     },
                                     {
                                         name: "max_volume",
-                                        label: "Max volume",
+                                        label: "最大音量",
                                         selector: { number: {
                                             step: "any"
                                         } },
@@ -70,59 +70,59 @@ export function renderMediaPlayerEditor(editor){
                         .computeLabel=${editor._computeLabelCallback}
                         @value-changed=${editor._valueChanged}
                     ></ha-form>
-                    <ha-formfield .label="Optional - Hide play/pause button">
+                    <ha-formfield .label="隐藏播放/暂停按钮（可选）">
                         <ha-switch
-                            aria-label="Optional - Hide play/pause button"
+                            aria-label="隐藏播放/暂停按钮（可选）"
                             .checked=${editor._config.hide?.play_pause_button || false}
                             .configValue="${"hide.play_pause_button"}"
                             @change=${editor._valueChanged}
                         ></ha-switch>
                         <div class="mdc-form-field">
-                            <label class="mdc-label">Optional - Hide play/pause button</label> 
+                            <label class="mdc-label">隐藏播放/暂停按钮（可选）</label> 
                         </div>
                     </ha-formfield>
-                    <ha-formfield .label="Optional - Hide volume button">
+                    <ha-formfield .label="隐藏音量按钮（可选）">
                         <ha-switch
-                            aria-label="Optional - Hide volume button"
+                            aria-label="隐藏音量按钮（可选）"
                             .checked=${editor._config.hide?.volume_button || false}
                             .configValue="${"hide.volume_button"}"
                             @change=${editor._valueChanged}
                         ></ha-switch>
                         <div class="mdc-form-field">
-                            <label class="mdc-label">Optional - Hide volume button</label>
+                            <label class="mdc-label">隐藏音量按钮（可选）</label>
                         </div>
                     </ha-formfield>
-                    <ha-formfield .label="Optional - Hide next button">
+                    <ha-formfield .label="隐藏下一曲按钮（可选）">
                         <ha-switch
-                            aria-label="Optional - Hide next button"
+                            aria-label="隐藏下一曲按钮（可选）"
                             .checked=${editor._config.hide?.next_button || false}
                             .configValue="${"hide.next_button"}"
                             @change=${editor._valueChanged}
                         ></ha-switch>
                         <div class="mdc-form-field">
-                            <label class="mdc-label">Optional - Hide next button</label>
+                            <label class="mdc-label">隐藏下一曲按钮（可选）</label>
                         </div>
                     </ha-formfield>
-                    <ha-formfield .label="Optional - Hide previous button">
+                    <ha-formfield .label="隐藏上一曲按钮（可选）">
                         <ha-switch
-                            aria-label="Optional - Hide previous button"
+                            aria-label="隐藏上一曲按钮（可选）"
                             .checked=${editor._config.hide?.previous_button || false}
                             .configValue="${"hide.previous_button"}"
                             @change=${editor._valueChanged}
                         ></ha-switch>
                         <div class="mdc-form-field">
-                            <label class="mdc-label">Optional - Hide previous button</label>
+                            <label class="mdc-label">隐藏上一曲按钮（可选）</label>
                         </div>
                     </ha-formfield>
-                    <ha-formfield .label="Optional - Hide power button">
+                    <ha-formfield .label="隐藏开关按钮（可选）">
                         <ha-switch
-                            aria-label="Optional - Hide power button"
+                            aria-label="隐藏开关按钮（可选）"
                             .checked=${editor._config.hide?.power_button}
                             .configValue="${"hide.power_button"}"
                             @change=${editor._valueChanged}
                         ></ha-switch>
                         <div class="mdc-form-field">
-                            <label class="mdc-label">Optional - Hide power button</label>
+                            <label class="mdc-label">隐藏开关按钮（可选）</label>
                         </div>
                     </ha-formfield>
                 </div>
@@ -130,48 +130,48 @@ export function renderMediaPlayerEditor(editor){
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap"></ha-icon>
-                  Tap action on icon
+                  图标点击行为
                 </h4>
                 <div class="content">
-                    ${editor.makeActionPanel("Tap action")}
-                    ${editor.makeActionPanel("Double tap action")}
-                    ${editor.makeActionPanel("Hold action")}
+                    ${editor.makeActionPanel("单击行为")}
+                    ${editor.makeActionPanel("双击行为")}
+                    ${editor.makeActionPanel("长按行为")}
                 </div>
             </ha-expansion-panel>
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                 <ha-icon icon="mdi:gesture-tap-button"></ha-icon>
-                Tap action on card
+                卡片点击行为
                 </h4>
                 <div class="content">
-                    ${editor.makeActionPanel("Tap action", button_action, 'none', 'button_action')}
-                    ${editor.makeActionPanel("Double tap action", button_action, 'none', 'button_action')}
-                    ${editor.makeActionPanel("Hold action", button_action, 'none', 'button_action')}
+                    ${editor.makeActionPanel("单击行为", button_action, 'none', 'button_action')}
+                    ${editor.makeActionPanel("双击行为", button_action, 'none', 'button_action')}
+                    ${editor.makeActionPanel("长按行为", button_action, 'none', 'button_action')}
                 </div>
             </ha-expansion-panel>
             ${editor.makeSubButtonPanel()}
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling options
+                  样式
                 </h4>
                 <div class="content">
                     ${editor.makeLayoutOptions()}
                     <ha-expansion-panel outlined>
                         <h4 slot="header">
                           <ha-icon icon="mdi:palette"></ha-icon>
-                          Media player styling
+                          媒体播放器样式
                         </h4>
                         <div class="content"> 
-                            <ha-formfield .label="Optional - Blurred media cover in background">
+                            <ha-formfield .label="背景使用模糊的媒体封面（可选）">
                                 <ha-switch
-                                    aria-label="Optional - Blurred media cover in background"
+                                    aria-label="背景使用模糊的媒体封面（可选）"
                                     .checked=${editor._config.cover_background ?? false}
                                     .configValue="${"cover_background"}"
                                     @change=${editor._valueChanged}
                                 ></ha-switch>
                                 <div class="mdc-form-field">
-                                    <label class="mdc-label">Optional - Blurred media cover in background</label> 
+                                    <label class="mdc-label">背景使用模糊的媒体封面（可选）</label> 
                                 </div>
                             </ha-formfield>
                         </div>
@@ -183,10 +183,10 @@ export function renderMediaPlayerEditor(editor){
             <div class="bubble-info">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                    Media player card
+                    媒体播放器卡片
                 </h4>
                 <div class="content">
-                    <p>This card allows you to control a media player entity.</p>
+                    <p>这个卡片用于控制媒体播放器实体。</p>
                 </div>
             </div>
             ${editor.makeVersion()}

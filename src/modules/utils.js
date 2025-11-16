@@ -99,7 +99,7 @@ export function _formatModuleDescription(description) {
       if (!line) continue;
 
       // Detect the end of the metadata section
-      if (line.includes('Supported cards:') ||
+      if (line.includes('支持的卡片类型：') ||
         line.match(/^Version:/i) ||
         line.match(/^Creator:/i) ||
         line.match(/^ID:/i)) {
@@ -143,10 +143,10 @@ export function _formatModuleDescription(description) {
     }
 
     // If everything fails, return a default message
-    return "No description available";
+    return "无可用描述";
   } catch (error) {
-    console.warn("Error during description formatting:", error);
-    return "No description available";
+    console.warn("在格式化描述时出错：", error);
+    return "无可用描述";
   }
 }
 

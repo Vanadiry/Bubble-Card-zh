@@ -94,14 +94,14 @@ class BubbleCardZh extends HTMLElement {
     if (config.error) throw new Error(config.error);
     const workingConfig = { ...config };
 
-    if (!workingConfig.card_type) throw new Error("You need to define a card type");
+    if (!workingConfig.card_type) throw new Error("需要定义卡片类型");
     if (workingConfig.grid_options?.rows !== undefined) {
       workingConfig.rows = workingConfig.grid_options.rows;
     }
 
     if (workingConfig.card_type === 'pop-up') {
       if (workingConfig.hash && workingConfig.button_type && workingConfig.button_type !== 'name' && !workingConfig.entity && workingConfig.modules) {
-        throw new Error("You need to define an entity");
+        throw new Error("需要定义实体");
       }
     } else if (workingConfig.card_type === 'horizontal-buttons-stack') {
       const definedLinks = {};
@@ -109,25 +109,25 @@ class BubbleCardZh extends HTMLElement {
         if (/^\d+_icon$/.test(key)) {
           const linkKey = key.replace('_icon', '_link');
           if (workingConfig[linkKey] === undefined) {
-            throw new Error("You need to define " + linkKey);
+            throw new Error("需要定义" + linkKey);
           }
           if (definedLinks[workingConfig[linkKey]]) {
-            throw new Error("You can't use " + workingConfig[linkKey] + " twice");
+            throw new Error("不能使用" + workingConfig[linkKey] + "两次");
           }
           definedLinks[workingConfig[linkKey]] = true;
         }
       }
     } else if (['button', 'cover', 'climate', 'select', 'media-player'].includes(workingConfig.card_type)) {
       if (!workingConfig.entity && workingConfig.button_type !== 'name') {
-        throw new Error("You need to define an entity");
+        throw new Error("需要定义实体");
       }
     } else if (workingConfig.card_type === 'calendar') {
-      if (!workingConfig.entities) throw new Error("You need to define an entity list");
+      if (!workingConfig.entities) throw new Error("需要定义实体列表");
     }
 
     if (workingConfig.card_type === 'select' && workingConfig.entity && !workingConfig.select_attribute) {
       const isSelectEntity = workingConfig.entity.startsWith("input_select") || workingConfig.entity.startsWith("select");
-      if (!isSelectEntity) throw new Error('"Select menu (from attributes)" missing');
+      if (!isSelectEntity) throw new Error('缺少”从属性生成的选单“');
     }
 
     this.config = workingConfig;

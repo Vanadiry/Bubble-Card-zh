@@ -1,7 +1,6 @@
 import { html, LitElement } from "lit";
 import { fireEvent } from "../../tools/utils.js";
 import { hashCode, intToRGB } from "../../cards/calendar/helpers.js";
-import setupTranslation from "../../tools/localize.js";
 
 const computeLabel = (schema) => {
   return schema.title || schema.label;
@@ -9,23 +8,21 @@ const computeLabel = (schema) => {
 
 export class HaCalendarEntitySelectorZh extends LitElement {
   getSchema(entity) {
-    const t = setupTranslation(this.hass);
-
     return [{
       type: "expandable",
       name: "",
       title: entity
         ? this.hass.states[entity].attributes.friendly_name || entity
-        : t('editor.calendar.new_calendar'),
+        : '添加日历',
       schema: [
         {
           name: 'entity',
-          title: t('editor.calendar.entity'),
+          title: '实体',
           selector: { entity: { domain: ['calendar'] } },
         },
         {
           name: "color",
-          title: t('editor.calendar.color'),
+          title: '颜色',
           selector: { ui_color: {} },
         },
       ]
@@ -44,7 +41,6 @@ export class HaCalendarEntitySelectorZh extends LitElement {
   }
 
   render() {
-    const t = setupTranslation(this.hass);
     const addCalendar = () => {
       const newValue = [...(this.value || [])];
       newValue.push({ entity: '', color: '' });
@@ -62,7 +58,7 @@ export class HaCalendarEntitySelectorZh extends LitElement {
       <ha-expansion-panel outlined style="--expansion-panel-summary-padding: 0 8px;">
         <h4 slot="header" style="display: flex; align-items: center; margin: 10px 0;">
           <ha-icon icon="mdi:calendar" style="margin: 8px;"></ha-icon>
-          &nbsp;${t('editor.calendar.list_of_calendars')}
+          &nbsp;日历列表
         </h4>
         <div class="content"> 
           ${value.map((entity, index) => {
@@ -85,14 +81,14 @@ export class HaCalendarEntitySelectorZh extends LitElement {
                 ></ha-form>
                 <ha-button @click=${removeCalendar(index)}>
                   <ha-icon icon="mdi:calendar-remove"></ha-icon>&nbsp;
-                  ${t('editor.calendar.remove_calendar')}
+                  删除此日历
                 </ha-button>
               </div>
             `;
           })}
           <ha-button @click=${addCalendar} style="margin: 12px 4px 14px 4px;">
             <ha-icon icon="mdi:calendar-plus"></ha-icon>&nbsp;
-            ${t('editor.calendar.new_calendar')}
+            添加日历
           </ha-button>
         </div>
       </ha-expansion-panel>

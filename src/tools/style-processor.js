@@ -130,11 +130,11 @@ const INCLUDE_TYPE = new YAML.Type('!include', {
       try {
         return YAML.load(request.responseText, { schema: INCLUDE_SCHEMA });
       } catch (e) {
-        console.error(`Error parsing the included YAML file (/local/bubble/${data}):`, e);
+        console.error(`解析引用的YAML文件时出错(/local/bubble/${data}):`, e);
         return null;
       }
     } else {
-      console.error(`Error including the file /local/bubble/${data}: HTTP status ${request.status}`);
+      console.error(`引用文件失败/local/bubble/${data}: HTTP状态${request.status}`);
       return null;
     }
   }
@@ -191,7 +191,7 @@ export const loadYAML = async (urls) => {
       yamlCache.set(url, parsedYAML);
       return parsedYAML;
     } catch (error) {
-      console.warn(`Error fetching 'bubble-modules.yaml' from ${fullUrl}:`, error);
+      console.warn(`从${fullUrl}获取bubble-modules.yaml时出错：`, error);
       window.bubbleYamlWarning = true;
     }
   }
@@ -208,7 +208,7 @@ export const parseYAML = (yamlString) => {
     const parsedYAML = YAML.load(yamlString, { schema: INCLUDE_SCHEMA });
     return parsedYAML;
   } catch (error) {
-    console.error("YAML parsing error:", error);
+    console.error("YAML解析错误：", error);
     return null;
   }
 };
@@ -318,7 +318,7 @@ export const handleCustomStyles = async (context, element = context.card) => {
           const moduleCode = typeof tmpl === "object" && tmpl.code ? tmpl.code : tmpl;
           return evalStyles(context, moduleCode, { type: 'module', id: moduleId });
         } catch (moduleError) {
-          console.error(`Bubble Card - Error processing module "${moduleId}" before evaluation:`, moduleError);
+          console.error(`Bubble Card 中文 - 执行前置处理模块 ${moduleId} 时出错：`, moduleError);
           return "{}";
         }
       });
@@ -329,7 +329,7 @@ export const handleCustomStyles = async (context, element = context.card) => {
     try {
       evaluatedCustomStylesContent = evalStyles(context, customStyles, { type: 'custom_styles' });
     } catch (customStyleError) {
-      console.error("Bubble Card - Error processing custom styles before evaluation:", customStyleError);
+      console.error("Bubble Card 中文 - 在执行前置处理自定义样式时出错：", customStyleError);
     }
     
     const finalStylesToInject = `${combinedModuleStylesContent}\n${evaluatedCustomStylesContent}`.trim();
@@ -360,7 +360,7 @@ export const handleCustomStyles = async (context, element = context.card) => {
       }
     }
   } catch (error) {
-    console.error("Error applying styles:", error);
+    console.error("应用样式时出错：", error);
     if (context.initialLoad && targetElementForDisplayLogic?.style) {
         targetElementForDisplayLogic.style.display = "";
     }
@@ -450,21 +450,21 @@ export function evalStyles(context, styles = "", sourceInfo = { type: 'unknown' 
   } catch (error) {
     let sourceDescription = 'Unknown source';
     if (sourceInfo.type === 'module' && sourceInfo.id) {
-      sourceDescription = `Module ('${sourceInfo.id}')`;
+      sourceDescription = `模块 ('${sourceInfo.id}')`;
     } else if (sourceInfo.type === 'custom_styles') {
-      sourceDescription = 'Card Configuration (styles section)';
+      sourceDescription = '卡片配置（样式部分）';
     } else if (sourceInfo.type === 'unknown') {
-      sourceDescription = 'Direct call or unspecified source';
+      sourceDescription = '直接调用或来源未指定';
     }
 
     const cardType = context.config?.card_type || 'N/A';
     const entityId = context.config?.entity || 'N/A';
     const errorMessageToLog = 
-`Bubble Card - Template Error:
-  Card Type: ${cardType}
-  Entity: ${entityId}
-  Source: ${sourceDescription}
-  Error: ${error.message}`;
+`Bubble Card 中文 - 模板错误:
+  卡片类型: ${cardType}
+  实体: ${entityId}
+  来源: ${sourceDescription}
+  错误: ${error.message}`;
 
     if (context.editor) {
       const editorErrorMessage = error.message;
@@ -562,17 +562,17 @@ async function loadModulesFromEntity(hass) {
           return;
         }
       } catch (e) {
-        console.error(`❌ YAML parsing error for module ${module.id}:`, e);
+        console.error(`❌ ${module.id}模块的YAML解析错误`, e);
         // Display problematic content safely (if it's a string)
         if (typeof module.yaml === 'string') {
-          console.error("Problematic YAML content:", module.yaml.substring(0, 100) + "...");
+          console.error("存在问题的YAML内容：", module.yaml.substring(0, 100) + "...");
         } else {
-          console.error("Problematic YAML content type:", typeof module.yaml);
+          console.error("存在问题的YAML内容类型：", typeof module.yaml);
         }
       }
     });
   } catch (error) {
-    console.error("Error while processing modules from text entity:", error);
+    console.error("从文本实体处理中模块时出错：", error);
   }
 
   return modules;

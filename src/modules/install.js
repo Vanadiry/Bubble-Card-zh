@@ -82,7 +82,7 @@ export async function installOrUpdateModule(context, module) {
     }
 
     if (!yamlContent) {
-      throw new Error("No YAML content found for this module");
+      throw new Error("未找到此模块的YAML内容");
     }
 
     // Extract the first key of the YAML to use it as ID
@@ -232,16 +232,16 @@ export async function installOrUpdateModule(context, module) {
         try {
           const testParse = jsyaml.load(formattedYamlContent);
           if (!testParse || !testParse[moduleId]) {
-            console.warn("Warning: YAML formatting may have issues");
+            console.warn("警告：YAML格式可能存在问题");
           }
         } catch (parseError) {
-          console.warn("Error validating formatted YAML:", parseError);
+          console.warn("验证格式化后的YAML时出错：", parseError);
           // Fallback to original content if our formatting broke the YAML
           formattedYamlContent = yamlContent;
         }
       }
     } catch (yamlError) {
-      console.warn("Error processing YAML structure:", yamlError);
+      console.warn("处理YAML结构时出错：", yamlError);
     }
 
     // Optimized format for storage that preserves the proper YAML structure
@@ -270,7 +270,7 @@ export async function installOrUpdateModule(context, module) {
       // Check if the entity exists in Home Assistant
       const entityExists = context.hass && context.hass.states && context.hass.states[entityId];
       if (!entityExists) {
-        fireToast(context, "Persistent storage not configured - module saved locally only", "warning");
+        fireToast(context, "未配置持久化存储 - 模块仅能在浏览器中临时保存", "warning");
         
         // Proactively refresh editor UI and styles so changes appear immediately
         forceEditorUIRefresh(context);
@@ -278,7 +278,7 @@ export async function installOrUpdateModule(context, module) {
           success: true, 
           storage: "local_only",
           reason: "missing_entity",
-          message: "The persistent storage entity is not configured. Please check the setup instructions in the Module tab."
+          message: "未配置持久化存储实体。请在“模块”标签页查看设置说明。"
         };
       }
 
@@ -377,7 +377,7 @@ export async function installOrUpdateModule(context, module) {
         });
       }
 
-      fireToast(context, "Module installed successfully");
+      fireToast(context, "模块安装成功");
       fireEvent(context, "config-changed", { config: context._config });
 
       // Ensure UI and styles reflect changes immediately
@@ -387,15 +387,15 @@ export async function installOrUpdateModule(context, module) {
 
       return { success: true };
     } catch (apiError) {
-      console.error("REST API not available or error:", apiError);
-      fireToast(context, "Module saved locally only", "warning");
+      console.error("REST API 不可用或发生错误：", apiError);
+      fireToast(context, "模块仅能在浏览器中临时保存", "warning");
       // Ensure UI refresh even if HA persistence failed
       forceEditorUIRefresh(context);
       return { success: true, storage: "local_only" };
     }
   } catch (err) {
-    console.error("Installation error:", err);
-    fireToast(context, "Installation error: " + err.message, "error");
+    console.error("安装错误：", err);
+    fireToast(context, "安装错误：" + err.message, "error");
     throw err;
   }
 }
@@ -403,7 +403,7 @@ export async function installOrUpdateModule(context, module) {
 export async function installManualModule(context, yamlContent, moduleLink) {
   try {
     if (!yamlContent || yamlContent.trim() === '') {
-      throw new Error("No YAML content provided");
+      throw new Error("未提供YAML内容");
     }
 
     // If we have a moduleLink, try to add it directly to the YAML before creating the module
@@ -419,7 +419,7 @@ export async function installManualModule(context, yamlContent, moduleLink) {
           yamlContent = modifiedYaml;
         }
       } catch (error) {
-        console.warn("Could not add link directly to YAML:", error);
+        console.warn("无法将链接直接添加到YAML：", error);
       }
     }
 
@@ -433,8 +433,8 @@ export async function installManualModule(context, yamlContent, moduleLink) {
     // Use the existing installOrUpdateModule function to process the YAML
     return await installOrUpdateModule(context, mockModule);
   } catch (error) {
-    console.error("Manual module installation error:", error);
-    fireToast(context, "Installation error: " + error.message, "error");
+    console.error("手动安装模块错误：", error);
+    fireToast(context, "安装错误：" + error.message, "error");
     throw error;
   }
 } 

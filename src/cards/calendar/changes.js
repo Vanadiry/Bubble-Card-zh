@@ -1,6 +1,5 @@
 import { createElement, setLayout, applyScrollingEffect } from "../../tools/utils.js";
 import { handleCustomStyles } from '../../tools/style-processor.js';
-import setupTranslation from "../../tools/localize.js";
 import { addActions } from "../../tools/tap-actions.js";
 import { hashCode, intToRGB } from "./helpers.js";
 
@@ -67,7 +66,6 @@ export async function changeEventList(context) {
 }
 
 export async function changeEvents(context) {
-  const t = setupTranslation(context._hass);
   const eventsGroupedByDay = context.events.reduce((acc, event) => {
     const dayKey = getEventDateKey(event.start);
     if (!acc[dayKey]) {
@@ -119,7 +117,7 @@ export async function changeEvents(context) {
       const eventEnd = parseEventDateTime(event.end);
 
       const eventTime = createElement('div', 'bubble-event-time');
-      eventTime.innerHTML = isAllDay ? t("cards.calendar.all_day") : eventStart.toLocaleTimeString(getCurrentLocale, { hour: 'numeric', minute: 'numeric' });
+      eventTime.innerHTML = isAllDay ? "全天" : eventStart.toLocaleTimeString(getCurrentLocale, { hour: 'numeric', minute: 'numeric' });
       if (!isAllDay && context.config.show_end === true) {
         eventTime.innerHTML += ` – ${eventEnd.toLocaleTimeString(getCurrentLocale, { hour: 'numeric', minute: 'numeric' })}`;
       }
@@ -127,7 +125,7 @@ export async function changeEvents(context) {
       const eventNameWrapper = createElement('div', 'bubble-event-name-wrapper');
       const eventName = createElement('div', 'bubble-event-name');
 
-      const eventText = event.summary || t("cards.calendar.busy");
+      const eventText = event.summary || "忙碌";
       applyScrollingEffect(context, eventName, eventText);
       eventName.innerHTML = eventText;
       eventNameWrapper.appendChild(eventName);

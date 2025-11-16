@@ -59,8 +59,8 @@ export function generateYamlExport(moduleData) {
     
     return yamlContent;
   } catch (error) {
-    console.error("Error generating YAML export:", error);
-    return "# Error generating YAML export";
+    console.error("生成YAML导出时出错：", error);
+    return "# 生成YAML导出时出错";
   }
 }
 
@@ -71,13 +71,13 @@ export function generateGitHubExport(moduleData) {
     
     // Build the GitHub discussion markdown format
     let githubContent = `# ${name}\n\n`;
-    githubContent += `**Version:** ${version}  \n`;
-    githubContent += `**Creator:** ${creator}\n\n`;
+    githubContent += `**版本：** ${version}  \n`;
+    githubContent += `**作者：** ${creator}\n\n`;
     
     // Add supported cards section if any
     if (supported && supported.length > 0) {
       githubContent += `> [!IMPORTANT] \n`;
-      githubContent += `> **Supported cards:**\n`;
+      githubContent += `> **支持的卡片类型：**\n`;
       
       supported.forEach(card => {
         githubContent += `>  - ${card.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}\n`;
@@ -89,7 +89,7 @@ export function generateGitHubExport(moduleData) {
     // Add description
     if (description) {
       githubContent += `${description}\n`;
-      githubContent += `Configure this module via the editor or in YAML, for example:\n\n`;
+      githubContent += `可以通过编辑器或YAML来配置此模块，例如：\n\n`;
     }
     
     // Add configuration example
@@ -104,7 +104,7 @@ export function generateGitHubExport(moduleData) {
         githubContent += `    ${firstField.name}: YOUR_VALUE\n`;
       }
     } else {
-      githubContent += `    # Your configuration here\n`;
+      githubContent += `    # 在此处填写配置\n`;
     }
     
     githubContent += "```\n\n";
@@ -112,9 +112,9 @@ export function generateGitHubExport(moduleData) {
     
     // Module install section (collapsible)
     githubContent += "<details>\n\n";
-    githubContent += "<summary><b>🧩 Get this Module</b></summary>\n\n";
+    githubContent += "<summary><b>🧩 获取此模块</b></summary>\n\n";
     githubContent += "<br>\n\n";
-    githubContent += "> To use this module, simply install it from the Module Store (from the editor of any card > Modules), or copy and paste the following configuration into your `/www/bubble/bubble-modules.yaml` file.\n\n";
+    githubContent += "> 使用此模块很简单：从模块商店安装（在任意卡片的编辑器 -> 模块 中），或将以下配置复制并粘贴到您的 `/www/bubble/bubble-modules.yaml` 文件中。\n\n";
     
     // Full YAML definition
     githubContent += "```yaml\n";
@@ -150,10 +150,10 @@ export function generateGitHubExport(moduleData) {
         if (firstField && firstField.name) {
           githubContent += `            ${firstField.name}: YOUR_VALUE\n`;
         } else {
-          githubContent += `            # Your configuration here\n`;
+          githubContent += `            # 在此处填写配置\n`;
         }
       } else {
-        githubContent += `            # Your configuration here\n`;
+        githubContent += `            # 在此处填写配置\n`;
       }
       
       githubContent += `        </pre></code-block>\n\n`;
@@ -165,7 +165,7 @@ export function generateGitHubExport(moduleData) {
       const formattedCode = code.split('\n').map(line => `        ${line}`).join('\n');
       githubContent += `${formattedCode}\n\n`;
     } else {
-      githubContent += `        # Your code here\n\n`;
+      githubContent += `        # 在此处写代码\n\n`;
     }
     
     // Editor schema
@@ -186,13 +186,13 @@ export function generateGitHubExport(moduleData) {
     
     githubContent += "\n\n</details>\n\n";
     githubContent += "---\n\n";
-    githubContent += "### Screenshot:\n\n";
-    githubContent += "Important: The first screenshot here will be used on the Module Store, so please provide one.\n";
+    githubContent += "### 截图:\n\n";
+    githubContent += "重要提示：此处的第一张截图将用于模块商店，请务必提供一张。\n";
     
     return githubContent;
   } catch (error) {
-    console.error("Error generating GitHub export:", error);
-    return "# Error generating GitHub export format";
+    console.error("生成GitHub导出时出错：", error);
+    return "# 生成GitHub导出格式时出错";
   }
 }
 
@@ -215,8 +215,8 @@ export function copyToClipboard(context, text, successMessage, updatePreviewCall
       updatePreviewCallback(text);
     }
   } catch (err) {
-    console.error("Clipboard copy failed:", err);
-    fireToast(context, "Could not copy to clipboard. Please copy manually from the preview below.", "error");
+    console.error("复制到剪贴板失败：", err);
+    fireToast(context, "无法复制到剪贴板。请从下面的预览手动复制。", "error");
     
     if (typeof updatePreviewCallback === 'function') {
       updatePreviewCallback(text);
@@ -238,7 +238,7 @@ export function downloadModuleAsYaml(context, moduleData, updatePreviewCallback)
     URL.revokeObjectURL(url);
     
     // Use fireToast for notification
-    fireToast(context, "Module downloaded as YAML file!", "success");
+    fireToast(context, "模块已下载为YAML文件！", "success");
     
     // Update the preview
     if (typeof updatePreviewCallback === 'function') {
@@ -247,8 +247,8 @@ export function downloadModuleAsYaml(context, moduleData, updatePreviewCallback)
     
     return true;
   } catch (error) {
-    console.error("Error downloading module:", error);
-    fireToast(context, "Error downloading module: " + error.message, "error");
+    console.error("下载模块时出错：", error);
+    fireToast(context, "下载模块时出错: " + error.message, "error");
     return false;
   }
 } 

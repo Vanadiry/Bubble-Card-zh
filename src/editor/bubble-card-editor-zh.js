@@ -19,7 +19,6 @@ import { renderEmptyColumnEditor } from '../cards/empty-column/editor.js';
 import { makeSubButtonPanel } from '../components/sub-button/editor.js';
 import { makeModulesEditor } from '../modules/editor.js';
 import { makeModuleStore, _fetchModuleStore } from '../modules/store.js';
-import setupTranslation from '../tools/localize.js';
 import styles from './styles.css';
 import moduleStyles from '../modules/styles.css';
 import { getLazyLoadedPanelContent } from './utils.js';
@@ -122,8 +121,6 @@ class BubbleCardEditorZh extends LitElement {
             return html``;
         }
 
-        const t = setupTranslation(this.hass);
-        
         // Apply preview style only once
         if (!this._previewStyleApplied) {
             const homeAssistant = document.querySelector("body > home-assistant");
@@ -142,7 +139,7 @@ class BubbleCardEditorZh extends LitElement {
         }
 
         if (!this.listsUpdated) {
-            this._initializeLists(t);
+            this._initializeLists();
             this.listsUpdated = true;
         }
 
@@ -176,58 +173,50 @@ class BubbleCardEditorZh extends LitElement {
                         <div class="bubble-info">
                             <h4 class="bubble-section-title">
                                 <ha-icon icon="mdi:information-outline"></ha-icon>
-                                You need to add a card type first
+                                你需要先选择一个卡片类型
                             </h4>
                         </div>
-                        ${this.makeDropdown("Card type", "card_type", cardTypeList)}
-                        <img style="width: 100%; height: auto; border-radius: 24px;" src="https://raw.githubusercontent.com/Clooos/Bubble-Card/main/.github/bubble-card.gif">
+                        ${this.makeDropdown("卡片类型", "card_type", cardTypeList)}
+                        <img style="width: 100%; height: auto; border-radius: 24px;" src="https://raw.githubusercontent.com/Vanadiry/Bubble-Card-zh/main/.github/bubble-card.gif">
                         
                         <div class="bubble-info-container">
                             <div class="bubble-info">
                                 <h4 class="bubble-section-title">
                                     <ha-icon icon="mdi:tag-text"></ha-icon>
-                                    Bubble Card ${version}
+                                    Bubble Card 中文 ${version}
                                 </h4>
                                 <div class="content">
-                                    <p>If you want to know what's new in this version, you can check the changelog <a href="https://github.com/Clooos/Bubble-Card/releases/tag/${version}" target="_blank" rel="noopener noreferrer"><b>here</b></a>.</p>
+                                    <p>如果你想了解此版本的更新内容，可以点击<a href="https://github.com/Vanadiry/Bubble-Card-zh/releases/tag/${version}" target="_blank" rel="noopener noreferrer"><b>这里</b></a>查看更新日志。</p>
                                 </div>
                             </div>
                             
                             <div class="bubble-info">
                                 <h4 class="bubble-section-title">
                                     <ha-icon icon="mdi:help-circle-outline"></ha-icon>
-                                    Resources & Help
+                                    资源与帮助
                                 </h4>
                                 <div class="content">
-                                    <p>If you have an issue or a question you can find more details in the GitHub documentation. You can also find useful resources and help in these links.</p>
+                                    <p>如果你遇到问题或有疑问，可以在GitHub文档中找到更多详情。你也可以通过以下链接获取有用的资源与帮助。</p>
                                     <div class="bubble-badges">
-                                        <a href="https://github.com/Clooos/Bubble-Card" target="_blank" rel="noopener noreferrer" class="bubble-badge">
+                                        <a href="https://github.com/Vanadiry/Bubble-Card-zh" target="_blank" rel="noopener noreferrer" class="bubble-badge">
                                             <ha-icon icon="mdi:github"></ha-icon>
-                                            <span>Documentation</span>
+                                            <span>文档</span>
                                         </a>
-                                        <a href="https://github.com/Clooos/Bubble-Card/issues" target="_blank" rel="noopener noreferrer" class="bubble-badge">
+                                        <a href="https://github.com/Vanadiry/Bubble-Card-zh/issues" target="_blank" rel="noopener noreferrer" class="bubble-badge">
                                             <ha-icon icon="mdi:bug"></ha-icon>
-                                            <span>Issues</span>
+                                            <span>问题反馈</span>
                                         </a>
                                         <a href="https://github.com/Clooos/Bubble-Card/discussions/categories/questions-about-config-custom-styles-and-templates" target="_blank" rel="noopener noreferrer" class="bubble-badge">
                                             <ha-icon icon="mdi:help"></ha-icon>
-                                            <span>Config Help</span>
+                                            <span>配置帮助</span>
                                         </a>
                                         <a href="https://github.com/Clooos/Bubble-Card/discussions/categories/share-your-custom-styles-templates-and-dashboards" target="_blank" rel="noopener noreferrer" class="bubble-badge">
                                             <ha-icon icon="mdi:wrench"></ha-icon>
-                                            <span>Shared Examples</span>
-                                        </a>
-                                        <a href="https://www.youtube.com/@cloooos" target="_blank" rel="noopener noreferrer" class="bubble-badge">
-                                            <ha-icon icon="mdi:youtube"></ha-icon>
-                                            <span>YouTube</span>
-                                        </a>
-                                        <a href="https://www.reddit.com/r/BubbleCard/" target="_blank" rel="noopener noreferrer" class="bubble-badge">
-                                            <ha-icon icon="mdi:reddit"></ha-icon>
-                                            <span>r/BubbleCard</span>
+                                            <span>共享示例</span>
                                         </a>
                                         <a href="https://community.home-assistant.io/t/bubble-card-a-minimalist-card-collection-for-home-assistant-with-a-nice-pop-up-touch/609678" target="_blank" rel="noopener noreferrer" class="bubble-badge">
                                             <ha-icon icon="mdi:home-assistant"></ha-icon>
-                                            <span>HA Forum</span>
+                                            <span>HA 论坛</span>
                                         </a>
                                     </div>
                                 </div>
@@ -236,11 +225,11 @@ class BubbleCardEditorZh extends LitElement {
                             <div class="bubble-info">
                                 <h4 class="bubble-section-title">
                                     <ha-icon icon="mdi:heart-outline"></ha-icon>
-                                    Support the Project
+                                    支持原始项目
                                 </h4>
                                 <div class="content">
-                                    <p>Hi I'm Clooos the Bubble Card developer. I dedicate most of my spare time to making this project the best it can be. So if you appreciate my work, any donation would be a great way to show your support.</p>
-                                    <p>Also, check out my Patreon for exclusive custom styles, templates, and modules. Subscribing is probably the best way to support me and keep this project going.</p>
+                                    <p>你好！我是Clooos，Bubble Card原始项目的开发者。我将大部分空闲时间都投入到这个项目中，希望它能做到最好。如果你喜欢我的工作，任何形式的捐赠都是支持我的好方式。</p>
+                                    <p>另外，你也可以查看我的Patreon，获取独家的自定义样式、模板和模块。订阅大概是支持我、并让这个项目持续下去的最佳方式。</p>
                                     <div class="bubble-badges">
                                         <a href="https://www.buymeacoffee.com/clooos" target="_blank" rel="noopener noreferrer" class="bubble-badge">
                                             <div class="bmc-icon">
@@ -248,7 +237,7 @@ class BubbleCardEditorZh extends LitElement {
                                                     <path d="M20.216 6.415l-.132-.666c-.119-.598-.388-1.163-1.001-1.379-.197-.069-.42-.098-.57-.241-.152-.143-.196-.366-.231-.572-.065-.378-.125-.756-.192-1.133-.057-.325-.102-.69-.25-.987-.195-.4-.597-.634-.996-.788a5.723 5.723 0 00-.626-.194c-1-.263-2.05-.36-3.077-.416a25.834 25.834 0 00-3.7.062c-.915.083-1.88.184-2.75.5-.318.116-.646.256-.888.501-.297.302-.393.77-.177 1.146.154.267.415.456.692.58.36.162.737.284 1.123.366 1.075.238 2.189.331 3.287.37 1.218.05 2.437.01 3.65-.118.299-.033.598-.073.896-.119.352-.054.578-.513.474-.834-.124-.383-.457-.531-.834-.473-.466.074-.96.108-1.382.146-1.177.08-2.358.082-3.536.006a22.228 22.228 0 01-1.157-.107c-.086-.01-.18-.025-.258-.036-.243-.036-.484-.08-.724-.13-.111-.027-.111-.185 0-.212h.005c.277-.06.557-.108.838-.147h.002c.131-.009.263-.032.394-.048a25.076 25.076 0 013.426-.12c.674.019 1.347.067 2.017.144l.228.031c.267.04.533.088.798.145.392.085.895.113 1.07.542.055.137.08.288.111.431l.319 1.484a.237.237 0 01-.199.284h-.003c-.037.006-.075.01-.112.015a36.704 36.704 0 01-4.743.295 37.059 37.059 0 01-4.699-.304c-.14-.017-.293-.042-.417-.06-.326-.048-.649-.108-.973-.161-.393-.065-.768-.032-1.123.161-.29.16-.527.404-.675.701-.154.316-.199.66-.267 1-.069.34-.176.707-.135 1.056.087.753.613 1.365 1.37 1.502a39.69 39.69 0 0011.343.376.483.483 0 01.535.53l-.071.697-1.018 9.907c-.041.41-.047.832-.125 1.237-.122.637-.553 1.028-1.182 1.171-.577.131-1.165.2-1.756.205-.656.004-1.31-.025-1.966-.022-.699.004-1.556-.06-2.095-.58-.475-.458-.54-1.174-.605-1.793l-.731-7.013-.322-3.094c-.037-.351-.286-.695-.678-.678-.336.015-.718.3-.678.679l.228 2.185.949 9.112c.147 1.344 1.174 2.068 2.446 2.272.742.12 1.503.144 2.257.156.966.016 1.942.053 2.892-.122 1.408-.258 2.465-1.198 2.616-2.657.34-3.332.683-6.663 1.024-9.995l.215-2.087a.484.484 0 01.39-.426c.402-.078.787-.212 1.074-.518.455-.488.546-1.124.385-1.766zm-1.478.772c-.145.137-.363.201-.578.233-2.416.359-4.866.54-7.308.46-1.748-.06-3.477-.254-5.207-.498-.17-.024-.353-.055-.47-.18-.22-.236-.111-.71-.054-.995.052-.26.152-.609.463-.646.484-.057 1.046.148 1.526.22.577.088 1.156.159 1.737.212 2.48.226 5.002.19 7.472-.14.45-.06.899-.13 1.345-.21.399-.072.84-.206 1.08.206.166.281.188.657.162.974a.544.544 0 01-.169.364zm-6.159 3.9c-.862.37-1.84.788-3.109.788a5.884 5.884 0 01-1.569-.217l.877 9.004c.065.78.717 1.38 1.5 1.38 0 0 1.243.065 1.658.065.447 0 1.786-.065 1.786-.065.783 0 1.434-.6 1.499-1.38l.94-9.95a3.996 3.996 0 00-1.322-.238c-.826 0-1.491.284-2.26.613z"/>
                                                 </svg>
                                             </div>
-                                            <span>Buy me a beer</span>
+                                            <span>请我喝杯啤酒</span>
                                         </a>
                                         <a href="https://www.paypal.com/donate/?business=MRVBV9PLT9ZPL&no_recurring=0&item_name=Hi%2C+I%27m+Clooos+the+creator+of+Bubble+Card.+Thank+you+for+supporting+me+and+my+passion.+You+are+awesome%21+%F0%9F%8D%BB&currency_code=EUR" target="_blank" rel="noopener noreferrer" class="bubble-badge support-badge">
                                             <div class="paypal-icon">
@@ -271,7 +260,24 @@ class BubbleCardEditorZh extends LitElement {
                                         <a href="https://www.reddit.com/user/Clooooos/" target="_blank" rel="noopener noreferrer">
                                             <img src="https://avatars.githubusercontent.com/u/36499953" alt="Clooos" class="creator-avatar">
                                         </a>
-                                        <p class="bubble-thank-you">Thank you for being part of this awesome community! Cheers from Belgium! 🍻</p>
+                                        <p class="bubble-thank-you">感谢你成为这个超棒社区的一员！来自比利时的敬意！🍻</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bubble-info">
+                                <h4 class="bubble-section-title">
+                                    <ha-icon icon="mdi:translate"></ha-icon>
+                                    关于翻译
+                                </h4>
+                                <div class="content">
+                                    <p>我是翻译这个插件的Vanadiry！谢谢你用我翻译的版本，希望能让你的配置过程更加省力。这是我的<a href="https://vanadiry.com/" target="_blank" rel="noopener noreferrer">个人主页</a>，欢迎大家来玩！</p>
+                                    <p>除了翻译，我只替换了一些类名，使得这个分支可以和原版共存。其他功能、操作逻辑等等，都是没有修改的。以及模块商店也用的是作者的仓库。<br />作者更新项目之后，我会在两天左右同步更新，所以你可以放心使用这个翻译分支。</p>
+                                    <p>如果有关于翻译的问题，请在<a href="https://github.com/Vanadiry/Bubble-Card-zh" target="_blank" rel="noopener noreferrer">Vanadiry/Bubble-Card-zh</a>项目中提出。不要在原作者的仓库中提交关于此分支的翻译问题。</p>
+                                    <div class="creator-message">
+                                        <a href="https://vanadiry.com/" target="_blank" rel="noopener noreferrer">
+                                            <img src="https://avatars.githubusercontent.com/u/77710715" alt="Vanadiry" class="creator-avatar">
+                                        </a>
+                                        <p class="bubble-thank-you">我是Vanadiry，为这个插件提供中文翻译！感谢Clooos带来的超好用工具！</p>
                                     </div>
                                 </div>
                             </div>
@@ -290,20 +296,20 @@ class BubbleCardEditorZh extends LitElement {
 
         return html`
             <ha-combo-box
-                label="${this._config.card_type === "pop-up" ? 'Header card layout' : 'Card layout'}"
+                label="${this._config.card_type === "pop-up" ? '卡片标头布局' : '卡片布局'}"
                 .value="${this._config.card_layout || defaultLayout}"
                 .configValue="${"card_layout"}"
                 .items="${[
-                    { label: 'Normal (previous default)', value: 'normal' },
-                    { label: 'Large', value: 'large' },
-                    { label: 'Large with 2 sub-buttons rows', value: 'large-2-rows' },
-                    { label: 'Large with sub-buttons in a grid (Layout: min. 2 rows)', value: 'large-sub-buttons-grid' }
+                    { label: '普通（默认）', value: 'normal' },
+                    { label: '更大', value: 'large' },
+                    { label: '更大（扁的子按钮）', value: 'large-2-rows' },
+                    { label: '更大（网格布局的子按钮，需要至少2行）', value: 'large-sub-buttons-grid' }
                 ]}"
                 @value-changed="${this._valueChanged}"
             ></ha-combo-box>
             ${this._renderConditionalContent(showRowsOption, html`
                 <ha-textfield
-                    label="Rows"
+                    label="行数"
                     type="number"
                     inputMode="numeric"
                     min="0"
@@ -318,10 +324,10 @@ class BubbleCardEditorZh extends LitElement {
             <div class="bubble-info warning">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:alert-outline"></ha-icon>
-                    Rows are already set in the "Layout" options
+                    行数已经在“布局”中设置了
                 </h4>
                 <div class="content">
-                    <p>If you want to change the rows, you can do it in the "Layout" options at the top of this editor. Or remove it from your config in YAML to enable this option.</p>
+                    <p>如果你想修改行数，可以在编辑器顶部的“布局”选项里调整。或者在YAML配置中删掉相关设置，以重新启用此选项。</p>
                 </div>
             </div>
             `)}
@@ -345,155 +351,155 @@ class BubbleCardEditorZh extends LitElement {
         return html`
 
             ${this._renderConditionalContent(array !== 'sub_button', html`
-                <ha-formfield .label="Text scrolling effect">
+                <ha-formfield .label="文字滚动效果">
                     <ha-switch
-                        aria-label="Text scrolling effect"
+                        aria-label="文字滚动效果"
                         .checked=${context?.scrolling_effect ?? true}
                         .configValue="${config + "scrolling_effect"}"
                         @change="${!array ? this._valueChanged : (ev) => this._arrayValueChange(index, { scrolling_effect: ev.target.checked }, array)}"
                     ></ha-switch>
                     <div class="mdc-form-field">
-                        <label class="mdc-label">Text scrolling effect</label> 
+                        <label class="mdc-label">文字滚动效果</label> 
                     </div>
                 </ha-formfield>
             `)}
             ${this._renderConditionalContent(array === 'sub_button', html`
                 <ha-formfield .label="Show background">
                     <ha-switch
-                        aria-label="Show background when entity is on"
+                        aria-label="实体开启时显示背景"
                         .checked=${context?.show_background ?? true}
                         @change="${(ev) => this._arrayValueChange(index, { show_background: ev.target.checked }, array)}"
                     ></ha-switch>
                     <div class="mdc-form-field">
-                        <label class="mdc-label">Show background when entity is on</label> 
+                        <label class="mdc-label">实体开启时显示背景</label> 
                     </div>
                 </ha-formfield>
             `)}
             ${this._renderConditionalContent(array === 'sub_button' && (context?.show_background ?? true), html`
-                <ha-formfield .label="Background color based on state">
+                <ha-formfield .label="背景色随实体状态变化">
                     <ha-switch
-                        aria-label="Background color based on state"
+                        aria-label="背景色随实体状态变化"
                         .checked=${context?.state_background ?? true}
                         @change="${(ev) => this._arrayValueChange(index, { state_background: ev.target.checked }, array)}"
                     ></ha-switch>
                     <div class="mdc-form-field">
-                        <label class="mdc-label">Background color based on state</label> 
+                        <label class="mdc-label">背景色随实体状态变化</label> 
                     </div>
                 </ha-formfield>
             `)}
             ${this._renderConditionalContent(array === 'sub_button' && (context?.state_background ?? true) && entity.startsWith("light"), html`
-                <ha-formfield .label="Background color based on light color">
+                <ha-formfield .label="背景颜色随灯光颜色变化">
                     <ha-switch
-                        aria-label="Background color based on light color"
+                        aria-label="背景颜色随灯光颜色变化"
                         .checked=${context?.light_background ?? true}
                         @change="${(ev) => this._arrayValueChange(index, { light_background: ev.target.checked }, array)}"
                     ></ha-switch>
                     <div class="mdc-form-field">
-                        <label class="mdc-label">Background color based on light color</label> 
+                        <label class="mdc-label">背景颜色随灯光颜色变化</label> 
                     </div>
                 </ha-formfield>
             `)}
             ${this._renderConditionalContent(array !== 'sub_button' && entity.startsWith("light"), html`
-                <ha-formfield .label="Use accent color instead of light color">
+                <ha-formfield .label="使用强调色替代灯光颜色">
                     <ha-switch
-                        aria-label="Use accent color instead of light color"
+                        aria-label="使用强调色替代灯光颜色"
                         .checked=${context?.use_accent_color ?? false}
                         .configValue="${config + "use_accent_color"}"
                         @change="${this._valueChanged}"
                     ></ha-switch>
                     <div class="mdc-form-field">
-                        <label class="mdc-label">Use accent color instead of light color</label> 
+                        <label class="mdc-label">使用强调色替代灯光颜色</label> 
                     </div>
                 </ha-formfield>
             `)}
-            <ha-formfield .label="Show icon">
+            <ha-formfield .label="显示图标">
                 <ha-switch
-                    aria-label="Show icon"
+                    aria-label="显示图标"
                     .checked=${context?.show_icon ?? true}
                     .configValue="${config + "show_icon"}"
                     @change="${!array ? this._valueChanged : (ev) => this._arrayValueChange(index, { show_icon: ev.target.checked }, array)}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Show icon</label> 
+                    <label class="mdc-label">显示图标</label> 
                 </div>
             </ha-formfield>
             ${this._renderConditionalContent(array !== 'sub_button', html`
-                <ha-formfield .label="Prioritize icon over entity picture">
+                <ha-formfield .label="图标优先于实体图片">
                     <ha-switch
-                        aria-label="Prioritize icon over entity picture"
+                        aria-label="图标优先于实体图片"
                         .checked=${context?.force_icon ?? false}
                         .configValue="${config + "force_icon"}"
                         .disabled="${nameButton}"
                         @change="${!array ? this._valueChanged : (ev) => this._arrayValueChange(index, { force_icon: ev.target.checked }, array)}"
                     ></ha-switch>
                     <div class="mdc-form-field">
-                        <label class="mdc-label">Prioritize icon over entity picture</label> 
+                        <label class="mdc-label">图标优先于实体图片</label> 
                     </div>
                 </ha-formfield>
             `)}
-            <ha-formfield .label="Show name">
+            <ha-formfield .label="显示名称">
                 <ha-switch
-                    aria-label="Show name"
+                    aria-label="显示名称"
                     .checked=${context?.show_name ?? array !== 'sub_button' ? true : false}
                     .configValue="${config + "show_name"}"
                     @change="${!array ? this._valueChanged : (ev) => this._arrayValueChange(index, { show_name: ev.target.checked }, array)}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Show name</label> 
+                    <label class="mdc-label">显示名称</label> 
                 </div>
             </ha-formfield>
-            <ha-formfield .label="Show entity state">
+            <ha-formfield .label="显示实体状态">
                 <ha-switch
-                    aria-label="Show entity state"
+                    aria-label="显示实体状态"
                     .checked="${context?.show_state ?? context.button_type === 'state'}"
                     .configValue="${config + "show_state"}"
                     .disabled="${nameButton && array !== 'sub_button'}"
                     @change="${!array ? this._valueChanged : (ev) => this._arrayValueChange(index, { show_state: ev.target.checked }, array)}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Show entity state</label> 
+                    <label class="mdc-label">显示实体状态</label> 
                 </div>
             </ha-formfield>
-            <ha-formfield .label="Show last changed">
+            <ha-formfield .label="显示最近变化时间">
                 <ha-switch
-                    aria-label="Show last changed"
+                    aria-label="显示最近变化时间"
                     .checked=${context?.show_last_changed}
                     .configValue="${config + "show_last_changed"}"
                     .disabled="${nameButton && array !== 'sub_button'}"
                     @change="${!array ? this._valueChanged : (ev) => this._arrayValueChange(index, { show_last_changed: ev.target.checked }, array)}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Show last changed</label> 
+                    <label class="mdc-label">显示最近变化时间</label> 
                 </div>
             </ha-formfield>
-            <ha-formfield .label="Show last updated">
+            <ha-formfield .label="显示最近更新时间">
                 <ha-switch
-                    aria-label="Show last updated"
+                    aria-label="显示最近更新时间"
                     .checked=${context?.show_last_updated}
                     .configValue="${config + "show_last_updated"}"
                     .disabled="${nameButton && array !== 'sub_button'}"
                     @change="${!array ? this._valueChanged : (ev) => this._arrayValueChange(index, { show_last_updated: ev.target.checked }, array)}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Show last updated</label> 
+                    <label class="mdc-label">显示最近更新时间</label> 
                 </div>
             </ha-formfield>
-            <ha-formfield .label="Show attribute">
+            <ha-formfield .label="显示属性">
                 <ha-switch
-                    aria-label="Show attribute"
+                    aria-label="显示属性"
                     .checked=${context?.show_attribute}
                     .configValue="${config + "show_attribute"}"
                     .disabled="${nameButton && array !== 'sub_button'}"
                     @change="${!array ? this._valueChanged : (ev) => this._arrayValueChange(index, { show_attribute: ev.target.checked }, array)}"
                 ></ha-switch>
                 <div class="mdc-form-field">
-                    <label class="mdc-label">Show attribute</label> 
+                    <label class="mdc-label">显示属性</label> 
                 </div>
             </ha-formfield>
             ${this._renderConditionalContent(context?.show_attribute, html`
                 <div class="ha-combo-box">
                     <ha-combo-box
-                        label="Attribute to show"
+                        label="要显示的属性"
                         .value="${context?.attribute}"
                         .configValue="${config + "attribute"}"
                         .items="${attributeList}"
@@ -503,15 +509,15 @@ class BubbleCardEditorZh extends LitElement {
                 </div>
             `)}
             ${this._renderConditionalContent(array === 'sub_button' && isSelect, html`
-                <ha-formfield .label="Show arrow (Select entities only)">
+                <ha-formfield .label="显示箭头（仅适用于选单实体）">
                     <ha-switch
-                        aria-label="Show arrow (Select entities only)"
+                        aria-label="显示箭头（仅适用于选单实体）"
                         .checked=${context?.show_arrow ?? true}
                         .configValue="${config + "show_arrow"}"
                         @change="${!array ? this._valueChanged : (ev) => this._arrayValueChange(index, { show_arrow: ev.target.checked }, array)}"
                     ></ha-switch>
                     <div class="mdc-form-field">
-                        <label class="mdc-label">Show arrow (Select menu only)</label> 
+                        <label class="mdc-label">显示箭头（仅适用于菜单实体）</label> 
                     </div>
                 </ha-formfield>
             `)}
@@ -592,20 +598,20 @@ class BubbleCardEditorZh extends LitElement {
     }
 
     makeActionPanel(label, context = this._config, defaultAction, array, index = this._config) {
-        const icon = label === "Tap action" 
+        const icon = label === "单击行为" 
             ? "mdi:gesture-tap" 
-            : label === "Double tap action" 
+            : label === "双击行为" 
             ? "mdi:gesture-double-tap"
-            : label === "Hold action" 
+            : label === "长按行为" 
             ? "mdi:gesture-tap-hold"
             : "mdi:gesture-tap";
-        const configValueType = label === "Tap action" 
+        const configValueType = label === "单击行为" 
             ? "tap_action"
-            : label === "Double tap action" 
+            : label === "双击行为" 
             ? "double_tap_action"
-            : label === "Hold action" 
+            : label === "长按行为" 
             ? "hold_action"
-            : label === "Open action"
+            : label === "开启行为"
             ? "open_action"
             : "close_action";
         
@@ -616,13 +622,13 @@ class BubbleCardEditorZh extends LitElement {
 
         let value;
         try{
-           value = label === "Tap action" 
+           value = label === "单击行为" 
                 ? context.tap_action
-                : label === "Double tap action" 
+                : label === "双击行为" 
                 ? context.double_tap_action
-                : label === "Hold action" 
+                : label === "长按行为" 
                 ? context.hold_action
-                : label === "Open action"
+                : label === "开启行为"
                 ? context.open_action
                 : context.close_action;
         }catch{}
@@ -630,7 +636,7 @@ class BubbleCardEditorZh extends LitElement {
         const isDefault = context === this._config;
 
         if (!defaultAction) {
-            defaultAction = isDefault && label === "Tap action" 
+            defaultAction = isDefault && label === "单击行为" 
             ? this._config.button_type !== "name" ? "more-info" : "none"
             : isDefault
             ? "none"
@@ -665,16 +671,16 @@ class BubbleCardEditorZh extends LitElement {
                             @value-changed=${(ev) => this._ActionChanged(ev,array,index)}
                         ></ha-form>
                         ${ value?.action  === 'call-service' || value?.action === 'perform-action' ? html`
-                            <ha-formfield .label="Use default entity">
+                            <ha-formfield .label="使用默认实体">
                                 <ha-switch
-                                    aria-label="Use default entity"
+                                    aria-label="使用默认实体"
                                     .configValue="${
                                                   (array ? array+".":"") + (parseInt(index) == index ? index+".":"") +  configValueType+".default_entity"}" 
                                     .checked=${value?.target?.entity_id === "entity"}
                                      @change=${this._updateActionsEntity}
                                 ></ha-switch>
                                 <div class="mdc-form-field">
-                                    <label class="mdc-label">Use default entity</label> 
+                                    <label class="mdc-label">使用默认实体</label> 
                                 </div>
                             </ha-formfield>
                         ` : ''}
@@ -691,7 +697,7 @@ class BubbleCardEditorZh extends LitElement {
     makeVersion() {
         return html`
             <h4 class="version">
-                Bubble Card 
+                Bubble Card 中文
                 <span class="version-number">
                     ${version}
                 </span>
@@ -712,7 +718,7 @@ class BubbleCardEditorZh extends LitElement {
             >
                 <h4 slot="header">
                     <ha-icon icon="mdi:code-braces"></ha-icon>
-                    Custom styles & JS templates
+                    自定义样式与JS模板
                 </h4>
                 <div class="content">
                     ${getLazyLoadedPanelContent(this, panelKey, !!this._expandedPanelStates[panelKey], () => html`
@@ -737,11 +743,10 @@ class BubbleCardEditorZh extends LitElement {
                     <div class="bubble-info">
                         <h4 class="bubble-section-title">
                             <ha-icon icon="mdi:information-outline"></ha-icon>
-                            Custom styles & JS templates
+                            自定义样式与JS模板
                         </h4>
                         <div class="content">
-                            <p>For advanced users, you can edit the CSS style of this card in the above code editor. More information and examples <a href="https://github.com/Clooos/Bubble-Card#styling" target="_blank" rel="noopener noreferrer">here</a>. You don't need to add <code>styles: |</code> (only used in YAML mode). You can also add <a href="https://github.com/Clooos/Bubble-Card#templates" target="_blank" rel="noopener noreferrer">JS templates</a> (Jinja is not supported).</p>
-                            <p><b>Check out my <a href="https://www.patreon.com/Clooos" target="_blank" rel="noopener noreferrer">Patreon</a></b> for more custom styles, templates, and modules. This is also the best way to show your support to my project.</p>
+                            <p>对于高级用户，你可以在上方的代码编辑器中编辑此卡片的CSS样式。更多信息和示例请点击<a href="https://github.com/Clooos/Bubble-Card#styling" target="_blank" rel="noopener noreferrer">这里</a>。不需要添加<code>styles: |</code>（仅在 YAML 模式中使用）。你也可以添加<a href="https://github.com/Clooos/Bubble-Card#templates" target="_blank" rel="noopener noreferrer">JS模板</a>（不支持Jinja）。</p>
                         </div>
                     </div>
                 </div>
@@ -895,13 +900,13 @@ class BubbleCardEditorZh extends LitElement {
                 style="display: ${!context.errorMessage ? 'none' : ''}; margin-bottom: 8px;">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:alert-circle-outline"></ha-icon>
-                    Error in JS template
+                    JS模板错误
                 </h4>
                 <div class="content">
                     <p>${context.errorMessage}</p>
                     ${context._editingModule && typeof context._editingModule === 'object' && context._editingModule.id ? html`<hr><span class="helper-text" style="margin: 0;">
                         <ha-icon icon="mdi:information-outline"></ha-icon>
-                        JS template errors can sometimes be delayed in the Module Editor.
+                        JS模板的错误有时会在模块编辑器里延迟显示。
                     </span>` : ''}
                 </div>
             </div>
@@ -1229,7 +1234,7 @@ class BubbleCardEditorZh extends LitElement {
     `;
   }
 
-  _initializeLists(t) {
+  _initializeLists() {
     const formateList = item => ({
         label: item,
         value: item
@@ -1317,15 +1322,15 @@ class BubbleCardEditorZh extends LitElement {
     }
 
     this.cardTypeList = [{
-            'label': '按钮 (开关, 滑块, ...)',
+            'label': '按钮（开关、滑块...）',
             'value': 'button'
         },
         {
-            'label': t('editor.calendar.name'),
+            'label': '日历',
             'value': 'calendar'
         },
         {
-            'label': 'Cover',
+            'label': '遮阳设备',
             'value': 'cover'
         },
         {
@@ -1333,11 +1338,11 @@ class BubbleCardEditorZh extends LitElement {
             'value': 'climate'
         },
         {
-            'label': '空白填充列',
+            'label': '空白占位',
             'value': 'empty-column'
         },
         {
-            'label': 'Horizontal buttons stack',
+            'label': '水平按钮组',
             'value': 'horizontal-buttons-stack'
         },
         {
@@ -1345,7 +1350,7 @@ class BubbleCardEditorZh extends LitElement {
             'value': 'media-player'
         },
         {
-            'label': 'Pop-up',
+            'label': '弹出面板',
             'value': 'pop-up'
         },
         {
@@ -1353,7 +1358,7 @@ class BubbleCardEditorZh extends LitElement {
             'value': 'select'
         },
         {
-            'label': 'Separator',
+            'label': '分隔线',
             'value': 'separator'
         }
     ];

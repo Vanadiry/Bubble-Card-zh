@@ -1,9 +1,7 @@
 import { html } from "lit";
-import setupTranslation from '../../tools/localize.js';
 import "../../components/editor/ha-selector-calendar_entity-zh.js";
 
 export function renderCalendarEditor(editor){
-    const t = setupTranslation(editor.hass);
     
     // S'assurer que event_action est initialisé
     if (!editor._config.event_action) {
@@ -16,14 +14,14 @@ export function renderCalendarEditor(editor){
 
     return html`
         <div class="card-config">
-            ${editor.makeDropdown("Card type", "card_type", editor.cardTypeList)}
+            ${editor.makeDropdown("卡片类型", "card_type", editor.cardTypeList)}
             <ha-form
                 .hass=${editor.hass}
                 .data=${editor._config}
                 .schema=${[
                   {
                     name: "entities",
-                    title: t('editor.calendar.entities'),
+                    title: "实体",
                     selector: { calendar_entity: {} },
                   },
                 ]}   
@@ -33,7 +31,7 @@ export function renderCalendarEditor(editor){
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:cog"></ha-icon>
-                  ${t('editor.calendar.settings')}
+                  日历设置
                 </h4>
                 <div class="content">
                     <ha-form
@@ -42,32 +40,32 @@ export function renderCalendarEditor(editor){
                       .schema=${[
                         {
                           name: 'limit',
-                          label: t('editor.calendar.limit'),
-                          title: t('editor.calendar.limit'),
+                          label: '限制',
+                          title: '限制',
                           selector: { number: { step: 1, min: 1} },
                         },
                         {
                           name: 'show_end',
-                          label: t('editor.calendar.show_end'),
-                          title: t('editor.calendar.show_end'),
+                          label: '显示结束时间',
+                          title: '显示结束时间',
                           selector: { boolean: {} },
                         },
                         {
                           name: 'show_progress',
-                          label: t('editor.calendar.show_progress'),
-                          title: t('editor.calendar.show_progress'),
+                          label: '显示进度',
+                          title: '显示进度',
                           selector: { boolean: {} },
                         },
                         {
                           name: 'show_place',
-                          label: t('editor.calendar.show_place'),
-                          title: t('editor.calendar.show_place'),
+                          label: '显示地点',
+                          title: '显示地点',
                           selector: { boolean: {} },
                         },
                         {
                           name: 'scrolling_effect',
-                          label: t('editor.calendar.text_scrolling'),
-                          title: t('editor.calendar.text_scrolling'),
+                          label: '文字滚动效果',
+                          title: '文字滚动效果',
                           selector: { boolean: {} },
                           default: true
                         }
@@ -80,30 +78,30 @@ export function renderCalendarEditor(editor){
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap"></ha-icon>
-                  Tap action on day
+                  日期点击行为
                 </h4>
                 <div class="content">
-                    ${editor.makeActionPanel("Tap action", editor._config, 'none')}
-                    ${editor.makeActionPanel("Double tap action")}
-                    ${editor.makeActionPanel("Hold action")}
+                    ${editor.makeActionPanel("单击行为", editor._config, 'none')}
+                    ${editor.makeActionPanel("双击行为")}
+                    ${editor.makeActionPanel("长按行为")}
                 </div>
             </ha-expansion-panel>
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:gesture-tap-button"></ha-icon>
-                  Tap action on event
+                  事件点击行为
                 </h4>
                 <div class="content">
-                    ${editor.makeActionPanel("Tap action", editor._config.event_action, 'none', 'event_action')}
-                    ${editor.makeActionPanel("Double tap action", editor._config.event_action, 'none', 'event_action')}
-                    ${editor.makeActionPanel("Hold action", editor._config.event_action, 'none', 'event_action')}
+                    ${editor.makeActionPanel("单击行为", editor._config.event_action, 'none', 'event_action')}
+                    ${editor.makeActionPanel("双击行为", editor._config.event_action, 'none', 'event_action')}
+                    ${editor.makeActionPanel("长按行为", editor._config.event_action, 'none', 'event_action')}
                 </div>
             </ha-expansion-panel>
             ${editor.makeSubButtonPanel()}
             <ha-expansion-panel outlined>
                 <h4 slot="header">
                   <ha-icon icon="mdi:palette"></ha-icon>
-                  Styling options
+                  样式
                 </h4>
                 <div class="content">
                     ${editor.makeLayoutOptions()}
@@ -114,10 +112,10 @@ export function renderCalendarEditor(editor){
             <div class="bubble-info">
                 <h4 class="bubble-section-title">
                     <ha-icon icon="mdi:information-outline"></ha-icon>
-                    Calendar card
+                    日历卡片
                 </h4>
                 <div class="content">
-                    <p>This card allows you to display a calendar and is scrollable, so you can view additional events.</p>
+                    <p>这个卡片用于显示日历，并且支持滚动查看，让你能浏览更多的事件。</p>
                 </div>
             </div>
             ${editor.makeVersion()}

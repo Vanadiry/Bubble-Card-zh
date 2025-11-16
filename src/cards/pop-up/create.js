@@ -336,9 +336,9 @@ export function prepareStructure(context) {
       const template = html`
         <ha-alert 
           alert-type="error"
-          .title=${'You need to define a unique hash for this pop-up'}
+          .title=${'需要为这个弹出面板指定唯一的锚点标识'}
         >
-          <p>Once created and saved, this pop-up will be <b>hidden by default</b> and <b>can be opened by targeting its hash</b>. You can trigger it using <a href="https://github.com/Clooos/Bubble-Card#example" target="_blank" rel="noopener noreferrer">any card</a> that supports the <code>navigate</code> <a href="https://github.com/Clooos/Bubble-Card?tab=readme-ov-file#tap-double-tap-and-hold-actions" target="_blank" rel="noopener noreferrer">action</a> (check the example), or with the included <a href="https://github.com/Clooos/Bubble-Card#horizontal-buttons-stack" target="_blank" rel="noopener noreferrer">horizontal buttons stack</a> card.</p>
+          <p>弹出面板默认是隐藏的，你可以通过触发它的锚点标识（例如#pop-up-name），使用任意支持“前往”动作的卡片来打开它。</p>
         </ha-alert>
       `;
       render(template, errorText);

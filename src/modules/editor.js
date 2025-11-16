@@ -271,9 +271,9 @@ export function makeModulesEditor(context) {
   if (context._modulesLoaded && !yamlKeysMap.has('default') && entityExists) {
     // Create default module YAML content
     const defaultModuleYaml = `default:
-  name: Default
+  name: 默认
   version: ''
-  description: Empty and enabled by default. Add your custom styles and/or JS templates here to apply them to all cards by pressing the <ha-icon icon="mdi:pencil"></ha-icon> button above.
+  description: 默认是空的并已启用。在这里添加你的自定义样式和/或JS模板，然后点击上方的 <ha-icon icon="mdi:pencil"></ha-icon> 按钮即可应用到所有卡片。
   code: ''
   is_global: true
   `;
@@ -281,11 +281,11 @@ export function makeModulesEditor(context) {
   // Install the default module
   installManualModule(context, defaultModuleYaml)
     .then(() => {
-      console.info("Default module created automatically");
+      console.info("默认模块已自动创建");
       context.requestUpdate();
     })
     .catch(error => {
-      console.error("Error creating default module:", error);
+      console.error("自动创建默认模块时出错：", error);
     });
   }
 
@@ -406,7 +406,7 @@ export function makeModulesEditor(context) {
       context._manualYamlContent = '';
       context.requestUpdate();
     } catch (error) {
-      console.error("Error installing manual module:", error);
+      console.error("手动安装模块时出错：", error);
     }
   };
 
@@ -438,7 +438,7 @@ export function makeModulesEditor(context) {
             @click=${() => handleHaTabNavClick(MODULE_TAB_IDS[0])}
           >
             <ha-icon icon="mdi:puzzle-heart-outline" style="margin-right: 8px;"></ha-icon>
-            My Modules
+            我的模块
           </ha-tab-group-tab>
           <ha-tab-group-tab
             slot="nav"
@@ -448,7 +448,7 @@ export function makeModulesEditor(context) {
             @click=${() => handleHaTabNavClick(MODULE_TAB_IDS[1])}
           >
             <ha-icon icon="mdi:puzzle-plus-outline" style="margin-right: 8px;"></ha-icon>
-            Module Store
+            模块商店
           </ha-tab-group-tab>
         </ha-tab-group>
       `;
@@ -463,11 +463,11 @@ export function makeModulesEditor(context) {
         >
           <sl-tab slot="nav" panel="0">
             <ha-icon icon="mdi:puzzle-heart-outline" style="color: inherit !important; margin-right: 8px;"></ha-icon>
-            My Modules
+            我的模块
           </sl-tab>
           <sl-tab slot="nav" panel="1" ?disabled=${!entityExists}>
             <ha-icon icon="mdi:puzzle-plus-outline" style="color: inherit !important; margin-right: 8px;"></ha-icon>
-            Module Store
+            模块商店
           </sl-tab>
           <sl-tab-panel name="0"></sl-tab-panel>
           <sl-tab-panel name="1"></sl-tab-panel>
@@ -482,11 +482,11 @@ export function makeModulesEditor(context) {
       >
         <paper-tab>
           <ha-icon icon="mdi:puzzle-heart-outline" style="margin-right: 8px;"></ha-icon>
-          My Modules
+          我的模块
         </paper-tab>
         <paper-tab class="${!entityExists ? 'disabled' : ''}" ?disabled=${!entityExists}>
           <ha-icon icon="mdi:puzzle-plus-outline" style="margin-right: 8px;"></ha-icon>
-          Module Store
+          模块商店
         </paper-tab>
       </ha-tabs>
     `;
@@ -496,7 +496,7 @@ export function makeModulesEditor(context) {
     <ha-expansion-panel outlined>
       <h4 slot="header">
         <ha-icon icon="mdi:puzzle"></ha-icon>
-        Modules
+        模块
         ${moduleUpdates.hasUpdates && entityExists ? html`
           <span class="bubble-badge update-badge" style="margin-left: 8px; font-size: 0.8em; vertical-align: middle;">
             <ha-icon icon="mdi:arrow-up-circle-outline"></ha-icon>
@@ -509,20 +509,20 @@ export function makeModulesEditor(context) {
             <div class="bubble-info warning">
               <h4 class="bubble-section-title">
                 <ha-icon icon="mdi:alert-circle-outline"></ha-icon>
-                Configuration required
+                需要进行配置
               </h4>
               <div class="content">
                 ${storageStatus.entityFound ? html`
                   <p><b><code>${MODULES_SENSOR_ENTITY_ID}</code> is detected, but its configuration is incomplete or incorrect.</b></p>
                 ` : html`
-                  <p>The storage entity <code>${MODULES_SENSOR_ENTITY_ID}</code> is not configured in your Home Assistant instance.</p>
+                  <p>你的Home Assistant中尚未配置用于存储的 <code>${MODULES_SENSOR_ENTITY_ID}</code> 实体。</p>
                 `}
                 <hr />
-                <p><b>To use the Module Store and the Module Editor, follow these steps:</b></p>
+                <p><b>要使用模块商店和模块编辑器，请按下面步骤操作：</b></p>
 
-                <p>1. Add the following to your <code>configuration.yaml</code> file:</p>
+                <p>1. 在 <code>configuration.yaml</code> 文件中，添加以下内容：</p>
                 <code-block><pre>
-# Storage for Bubble Card Modules
+# Bubble Card 模块存储
 template:
   - trigger:
       - trigger: event
@@ -535,8 +535,8 @@ template:
           modules: "{{ trigger.event.data.modules }}"
           last_updated: "{{ trigger.event.data.last_updated }}"
                 </pre></code-block>
-                <p>2. Save the file and restart Home Assistant</p>
-                <p>3. Enjoy the Module Store and the Module Editor!</p>
+                <p>2. 保存并重启Home Assistant</p>
+                <p>3. 即可使用模块商店和模块编辑器！</p>
               </div>
             </div>
         ` : ''}
@@ -625,7 +625,7 @@ template:
               const hasEditor = formSchema && formSchema.length > 0;
               const isDefaultModule = key === 'default';
               const allCardsDisabled = isDefaultModule || hasEditor;
-              let allCardsButtonText = "All cards";
+              let allCardsButtonText = "所有卡片";
               
               // Get the current configuration for the module key
               const currentConfig = context._config[key];
@@ -690,7 +690,7 @@ template:
                       <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="module-toggles-container">
                           <span class="module-toggles-label">
-                            APPLY TO
+                            应用到
                           </span>
                           <div class="module-toggles">
                             <button 
@@ -707,7 +707,7 @@ template:
                               }}
                             >
                               <ha-icon icon="mdi:card-outline"></ha-icon>
-                              <span>This card</span>
+                              <span>这个卡片</span>
                             </button>
                             
                             ${entityExists ? html`
@@ -733,7 +733,7 @@ template:
                                     context._helpModuleId = context._helpModuleId === key ? null : key;
                                     context.requestUpdate();
                                   }}
-                                  title="Show help"
+                                  title="显示帮助"
                                 >
                                   <ha-icon icon="mdi:help"></ha-icon>
                                 </button>
@@ -812,7 +812,7 @@ template:
                       <div class="bubble-info" style="display: ${!description ? 'none' : ''}">
                         <h4 class="bubble-section-title">
                           <ha-icon icon="mdi:information-outline"></ha-icon>
-                            About this module
+                            关于这个模块
                         </h4>
                         <div class="content">
                           ${html`<span .innerHTML=${description}></span>`}
@@ -822,9 +822,9 @@ template:
                       ${creator || moduleLink || moduleVersion
                         ? html`
                           <h4 class="version module-version">
-                            ${creator ? `Created by ${creator}` : ''}
+                            ${creator ? `由${creator}创建` : ''}
                             <span class="version-number">
-                              ${moduleLink ? html`<a href="${moduleLink}" target="_blank" rel="noopener noreferrer">Module link</a> • ` : ''}
+                              ${moduleLink ? html`<a href="${moduleLink}" target="_blank" rel="noopener noreferrer">模块连接</a> • ` : ''}
                               ${moduleVersion || ''}
                             </span>
                           </h4>
@@ -871,7 +871,7 @@ template:
               setTimeout(() => scrollToModuleForm(context), 0);
             }}>
               <ha-icon icon="mdi:puzzle-plus"></ha-icon>
-              Create new Module
+              新建模块
             </button>
             
             <button class="icon-button" style="flex: 1;" @click=${() => {
@@ -883,7 +883,7 @@ template:
               setTimeout(() => scrollToModuleForm(context), 0);
             }}>
               <ha-icon icon="mdi:code-json"></ha-icon>
-              Import from YAML
+              从YAML导入
             </button>
           </div>
           ` : ''}
@@ -892,12 +892,12 @@ template:
         <div class="bubble-info">
           <h4 class="bubble-section-title">
             <ha-icon icon="mdi:information-outline"></ha-icon>
-            Modules
+            模块
           </h4>
           <div class="content">
-            <p>Modules are really powerful and the best way to apply <a href="https://github.com/Clooos/Bubble-Card#styling" target="_blank" rel="noopener noreferrer">custom styles</a> and/or <a href="https://github.com/Clooos/Bubble-Card#templates" target="_blank" rel="noopener noreferrer">JS templates</a> to your cards, without having to copy/paste the same code over and over again.</p>
-            <p>This makes it easy to change things like the styles of all your cards, and for advanced users, to modify or add features with a real editor.</p>
-            <p><b>If coding isn't your thing</b>, you can also find and install modules made by the community in the <b>Module Store</b>.</p>
+            <p>模块非常强大，是为卡片应用<a href="https://github.com/Clooos/Bubble-Card#styling" target="_blank" rel="noopener noreferrer">自定义样式</a>和<a href="https://github.com/Clooos/Bubble-Card#templates" target="_blank" rel="noopener noreferrer">JS模板</a>模板的最佳方式，无需一遍又一遍地复制粘贴相同的代码。</p>
+            <p>这让你能够轻松统一修改所有卡片的样式，而对高级用户来说，还可以用真正的编辑器来修改或新增功能。</p>
+            <p><b>就算你不擅长写代码</b>，也能在<b>模块商店</b>中查找并安装社区制作的模块。</p>
           </div>
         </div>
       </div>
