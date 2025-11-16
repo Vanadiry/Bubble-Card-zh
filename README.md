@@ -13,8 +13,11 @@ Bubble Card 原项目版权归原作者 Clooos 所有，本分支沿用 MIT Lice
 有关翻译的问题，请在此仓库提出，不要在原项目仓库中提交关于此分支的翻译问题。
 
 <details>
+
 <summary>English Ver.</summary>
+
 <br>
+
 This repository is an unofficial Chinese translation fork of Bubble Card.<br>
 It contains no functional changes; this fork stays synced with the upstream project and provides a full Chinese localization.
 
@@ -32,6 +35,7 @@ You can use this Chinese version with confidence.
 
 For any translation-related issues, please open an issue in this repository.<br>
 Please do not submit translation issues for this fork to the upstream repository.
+
 </details>
 
 <br>
@@ -92,8 +96,9 @@ Please do not submit translation issues for this fork to the upstream repository
 
 如果你已经在用原版 Bubble Card 了，通过下面的步骤，可以方便地迁移到此中文版本（建议同版本迁移）。
 
-进入“编辑仪表盘”，然后点击右上角的 `...` 并进入“原始配置编辑器”，将里面的文本全部拷贝到你喜欢的编辑器中。<br>
-将 `custom:bubble-card` 全部替换为 `custom:bubble-card-zh`，并将这些内容拷贝回原始配置编辑器，然后保存并刷新页面即可。
+进入“编辑仪表盘”，然后点击右上角的 `...` 并进入“原始配置编辑器”，将里面的内容全部拷贝到你喜欢的编辑器中。<br>
+将 `custom:bubble-card` 全部替换为 `custom:bubble-card-zh`。<br>
+将修改后的内容拷贝回原始配置编辑器，然后保存并刷新页面即可。
 
 ## 配置
 
