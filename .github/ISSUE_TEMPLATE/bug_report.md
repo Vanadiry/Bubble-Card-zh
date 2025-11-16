@@ -1,54 +1,55 @@
 ---
-name: Bug report
-about: Create a report to help me improve
+name: 报告 Bug
+about: 创建一个报告来帮助我改进
 title: ''
 labels: bug
 assignees: ''
-
 ---
 
-For any feature request you can open a new discussion here:  
-https://github.com/Clooos/Bubble-Card/discussions/categories/feature-requests
+如果你有功能请求，请在这里发起讨论：
+此仓库[Vanadiry/Bubble-Card-zh](https://github.com/Vanadiry/Bubble-Card-zh/discussions/categories/feature-requests)功能请求讨论区。
+或原项目仓库[Clooos/Bubble-Card](https://github.com/Clooos/Bubble-Card/discussions/categories/feature-requests)。
 
-For any question you can open a new discussion here:  
-https://github.com/Clooos/Bubble-Card/discussions/categories/q-a
+如果你有疑问，请在这里发起讨论：
+此仓库[Vanadiry/Bubble-Card-zh](https://github.com/Vanadiry/Bubble-Card-zh/discussions/categories/q-a)问答讨论区。
+或原项目仓库[Clooos/Bubble-Card](https://github.com/Clooos/Bubble-Card/discussions/categories/q-a)。
 
-**Describe the bug**  
-A clear and concise description of what the bug is.
+**问题描述**
+请清晰简洁地描述你遇到的错误。
 
-**To Reproduce**  
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+**复现步骤**
+复现问题的步骤：
+1. 前往...
+2. 点击...
+3. 下拉到...
+4. 看到报错
 
-**Expected behavior**  
-A clear and concise description of what you expected to happen.
+**预期行为**
+请清晰简洁地描述你原本期望发生的情况。
 
-**HA logs**  
-If applicable.
+**Home Assistant 日志**
+如果有，请附上日志。
 
-**Browser console logs**  
-If applicable.
+**浏览器控制台日志（Console）**
+如果有，请附上日志。
 
-**Screenshots**  
-If applicable, add screenshots to help explain your problem.
+**截图**
+如果有，请提供截图帮助说明问题。
 
-**YAML**  
-If applicable, add any relevant YAML code.
+**YAML 配置**
+如果有，请附上相关 YAML 配置。
 
 ```yaml
-Your code here
+在这里粘贴你的 YAML
 ```
 
-**Information (please complete the following information):**  
- - OS: [e.g. iOS]
- - Browser/App: [e.g. chrome, safari]
- - Bubble Card version: [e.g. 2.0.4]
- - Home Assistant version: [e.g. 2024.6.4]
+**相关信息（请完整填写）：**
+ - 操作系统：（例：iOS / Windows）
+ - 浏览器/App：（例：Chrome/Safari）
+ - Bubble Card 中文 版本：（例：3.0.4）
+ - Home Assistant 版本：（例：2024.6.4）
 
-**Additional context**  
-Add any other context about the problem here.
+**其他补充说明**
+如果还有其他相关信息，请写在这里。
 
-Thank you! 🍻
+谢谢！🍻
