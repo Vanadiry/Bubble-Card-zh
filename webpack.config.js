@@ -15,11 +15,11 @@ const performance = {
 
 module.exports = [
   {
-    plugins: [
-      new CompressionPlugin({
-                  algorithm: 'gzip'
-              }),      
-    ],
+    // plugins: [
+    //   new CompressionPlugin({
+    //               algorithm: 'gzip'
+    //           }),      
+    // ],
     mode: 'production',
     entry: {
       'bubble-card': './src/bubble-card.js',
