@@ -1,3 +1,5 @@
+> 不再维护。
+
 # Bubble Card 中文
 
 本仓库是 Bubble Card 的中文翻译分支。<br>
@@ -7,8 +9,7 @@
 Bubble Card 原项目版权归原作者 Clooos 所有，本分支沿用 MIT License 发布。
 
 本仓库仅对前端文本进行本地化处理，方便中文用户使用。<br>
-除了翻译，还只替换了一些类名，使得这个分支可以和原版共存。其他功能、操作逻辑等，均未修改。以及模块商店也使用作者的仓库。<br>
-作者更新项目之后，我会在两天左右同步更新，所以你可以放心使用这个分支。
+除了翻译，还只替换了一些类名，使得这个分支可以和原版共存。其他功能、操作逻辑等，均未修改。以及模块商店也使用作者的仓库。
 
 有关翻译的问题，请在此仓库提出，不要在原项目仓库中提交关于此分支的翻译问题。
 
@@ -29,9 +30,6 @@ Only frontend text has been localized in this repository to improve usability fo
 Apart from translation, a few class names have been adjusted to ensure this fork can coexist with the original version.<br>
 All other features, functionality, and behaviors remain unchanged.<br>
 The module marketplace also continues to use the original author’s module source.
-
-Updates in this fork are usually published within about two days after the upstream project releases a new version.<br>
-You can use this Chinese version with confidence.
 
 For any translation-related issues, please open an issue in this repository.<br>
 Please do not submit translation issues for this fork to the upstream repository.
